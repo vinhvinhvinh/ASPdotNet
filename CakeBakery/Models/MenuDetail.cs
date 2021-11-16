@@ -7,24 +7,24 @@ using System.Threading.Tasks;
 
 namespace CakeBakery.Models
 {
-    public class Cart
+    public class MenuDetail
     {
         [Key]
-        [DisplayName("Mã giỏ hàng")]
-        public int CartId { get; set; }
+        [DisplayName("Mã chi tiết thực đơn")]
+        public int MenuDetailId { get; set; }
 
-        [DisplayName("Mã khách hàng")]
-        public int AccountId { get; set; }
-        public Account Account { get; set; }
+        [DisplayName("Mã Menu")]
+        public int MenuId { get; set; }
+        public Menu Menu { get; set; }
 
         [DisplayName("Mã sản phẩm")]
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
         [DisplayName("Số lượng")]
-        public int Quantity { get; set; }
+        public int Stock { get; set; }
 
-        
-
+        [DisplayName("Đã hết")]
+        public bool IsSoldOut { get; set; }
     }
 }
