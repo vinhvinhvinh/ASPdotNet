@@ -40,6 +40,7 @@ namespace CakeBakery.Models
         [DataType(DataType.Text)]
         public string Address1 { get; set; }
 
+        [DisplayName("Địa chỉ 2")]
         [DataType(DataType.Text)]
         public string Address2 { get; set; }
 
