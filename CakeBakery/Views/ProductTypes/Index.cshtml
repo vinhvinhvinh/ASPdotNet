@@ -1,0 +1,52 @@
+﻿@model IEnumerable<CakeBakery.Models.ProductType>
+
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Loại bánh";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">
+        <button class="au-btn au-btn-icon au-btn--green">
+            <i class="zmdi zmdi-plus"></i>Loại bánh mới
+        </button>
+    </a>
+</p>
+
+<div style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;margin-top:20px;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TypeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TypeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+    

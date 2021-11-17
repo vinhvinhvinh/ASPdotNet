@@ -1,0 +1,108 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    
+    ViewData["Title"] = "Thanh toán";
+}
+<partial name="_NavBar" />
+<!--================Billing Details Area =================-->
+<section class="billing_details_area p_100">
+    <div class="container">
+        <div class="return_option">
+            <h4>Đã có tài khoản? <a href="#">Nhấn vào để đăng nhập</a></h4>
+        </div>
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="main_title">
+                    <h2>Chi tiết thanh toán</h2>
+                </div>
+                <div class="billing_form_area">
+                    <form class="billing_form row" action="http://galaxyanalytics.net/demos/cake/theme/cake-html/contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                        <div class="form-group col-md-12">
+                            <label for="first">Họ tên *</label>
+                            <input type="text" class="form-control" id="first" name="name" placeholder="First Name">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="address">Địa chỉ nhận hàng *</label>
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Nhập địa chỉ nhận hàng">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="phone">Số điện thoại *</label>
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Số điện thoại">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="phone">Ghi chú</label>
+                            <textarea class="form-control" name="message" id="message" rows="1" placeholder="Lưu ý về đơn đặt hàng của bạn. ví dụ. lưu ý đặc biệt cho giao hàng"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="order_box_price">
+                    <div class="main_title">
+                        <h2>Chi tiết đơn hàng</h2>
+                    </div>
+                    <div class="payment_list">
+                        <div class="price_single_cost">
+                            <h5>Sản phẩm <span>Tổng tiền</span></h5>
+                            <h5>Tên sản phẩm  x Số lượng <span>Gía</span></h5>
+                            <h4>Phụ thu <span>Tiền phụ thu</span></h4>
+                            <h5>Vận chuyển<span class="text_f">Miễn phí vận chuyển</span></h5>
+                            <h3>Tổng thanh toán <span>Tổng tiền thanh toán</span></h3>
+                        </div>
+                        <div id="accordion" class="accordion_area">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Chuyển khoản trực tiếp
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body">
+                                        Thực hiện thanh toán của bạn trực tiếp vào tài khoản ngân hàng của chúng tôi. Vui lòng sử dụng ID đơn đặt hàng của bạn làm tham chiếu thanh toán. Đơn đặt hàng của bạn sẽ không được giao cho đến khi tiền đã hết trong tài khoản của chúng tôi.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            Thanh toán khi nhận hàng
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                    <div class="card-body">
+                                        Khi nhận hàng, thanh toán trực tiếp và kí đơn xác nhận.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="headingThree">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            Paypal
+                                            <img src="img/checkout-card.png" alt="">
+                                        </button>
+                                        <a href="https://www.paypal.com/vn/home">PayPal là gì?</a>
+                                    </h5>
+                                </div>
+                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                    <div class="card-body">
+                                        Thanh toán bằng ví điện tử PayPal
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" value="submit" class="btn pest_btn">Đặt hàng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Billing Details Area =================-->

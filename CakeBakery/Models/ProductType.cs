@@ -10,14 +10,14 @@ namespace CakeBakery.Models
     public class ProductType
     {
         [Key]
-        public int ProductTypeId { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "{0} không được bỏ trống!")]
         [DisplayName("Tên loại sản phẩm")]
-        public string ProductTypeName { get; set; }
+        public string TypeName { get; set; }
 
         [DisplayName("Trạng thái")]
-        public bool ProductTypeStatus { get; set; }
+        public int Status { get; set; }
         public List<Product> Products { get; set; }
     }
 }

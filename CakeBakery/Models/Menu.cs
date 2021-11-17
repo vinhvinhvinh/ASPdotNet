@@ -11,15 +11,21 @@ namespace CakeBakery.Models
     {
         [Key]
         [DisplayName("Mã Thực đơn")]
-        public int MenuId { get; set; }
+        public int Id { get; set; }
+
+        [DisplayName("Mã sản phẩm")]
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
 
         [DataType(DataType.DateTime)]
         [DisplayName("Thực đơn của ngày")]
         public DateTime MenuDate { get; set; }
 
-      
+        [DisplayName("Số lượng")]
+        public int Stock { get; set; }
+
         [DisplayName("Trạng thái")]
-        public bool MenuStatus { get; set; }
-        public List<MenuDetail> MenuDetails { get; set; }
+        public int Status { get; set; }
+      
     }
 }
