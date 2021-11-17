@@ -34,7 +34,7 @@ namespace CakeBakery.Controllers
             }
 
             var account = await _context.Accounts
-                .FirstOrDefaultAsync(m => m.AccountId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (account == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace CakeBakery.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AccountId,Username,Password,Email,FullName,Address1,Address2,Phone,Avatar,IsAdmin,AccountStatus")] Account account)
         {
-            if (id != account.AccountId)
+            if (id != account.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace CakeBakery.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AccountExists(account.AccountId))
+                    if (!AccountExists(account.Id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace CakeBakery.Controllers
             }
 
             var account = await _context.Accounts
-                .FirstOrDefaultAsync(m => m.AccountId == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (account == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace CakeBakery.Controllers
 
         private bool AccountExists(int id)
         {
-            return _context.Accounts.Any(e => e.AccountId == id);
+            return _context.Accounts.Any(e => e.Id == id);
         }
     }
 }

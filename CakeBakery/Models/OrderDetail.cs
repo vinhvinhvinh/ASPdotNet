@@ -10,9 +10,8 @@ namespace CakeBakery.Models
     public class OrderDetail
     {
         [Key]
-
         [DisplayName("Mã chi tiết hóa đơn")]
-        public int OrderDetailId { get; set; }
+        public int Id { get; set; }
 
         [DisplayName("Mã hóa đơn")]
         public int OrderId { get; set; }
@@ -26,9 +25,8 @@ namespace CakeBakery.Models
         public int Quantity { get; set; }
 
         [DisplayName("Giá")]
-        public double Price { get; set; }
+        public int Price { get; set; }
 
-        [DisplayName("Tổng hóa đơn")]
-        public int Total { get; set; }
+      
     }
 }

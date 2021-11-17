@@ -12,7 +12,7 @@ namespace CakeBakery.Models
         [Key]
 
         [DisplayName("Mã bình luận")]
-        public int CommentId { get; set; }
+        public int Id { get; set; }
 
         [DisplayName("Mã khách hàng")]
         public int AccountId { get; set; }
@@ -28,10 +28,10 @@ namespace CakeBakery.Models
 
         [DisplayName("Thời gian")]
         [DataType(DataType.DateTime)]
-        public DateTime IssueDate { get; set; }
+        public DateTime PostedDate { get; set; }
 
         [DisplayName("Trạng thái")]
-        public bool Status { get; set; }
+        public int Status { get; set; }
 
     }
 }

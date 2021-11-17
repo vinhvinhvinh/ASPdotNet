@@ -11,7 +11,7 @@ namespace CakeBakery.Models
     {
         [Key]
         [DisplayName("Mã tài khoản")]
-        public int AccountId { get; set; }
+        public int Id { get; set; }
 
         [DataType(DataType.Text)]
         [Required(ErrorMessage = "{0} không được bỏ trống")]
@@ -32,7 +32,7 @@ namespace CakeBakery.Models
 
         [DisplayName("Tên đầy đủ")]
         [Required(ErrorMessage = "{0} không được bỏ trống")]
-        [StringLength(20, MinimumLength = 6, ErrorMessage = "{0} từ 6-20 kí tự")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "{0} từ 6-100 kí tự")]
         public string FullName { get; set; }
 
         [DisplayName("Địa chỉ")]
@@ -58,7 +58,7 @@ namespace CakeBakery.Models
         public bool IsAdmin { get; set; }
 
         [DisplayName("Trạng thái tài khoản")]
-        public bool AccountStatus { get; set; }
+        public int Status { get; set; }
 
         public List<Order> Orders { get; set; }
         public List<Cart> Carts { get; set; }

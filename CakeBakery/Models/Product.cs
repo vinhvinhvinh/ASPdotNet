@@ -10,23 +10,23 @@ namespace CakeBakery.Models
     public class Product
     {
         [Key]
-
-        public int ProductId { get; set; }
+        [DisplayName("Mã sản phẩm")]
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "{0} không được bỏ trống!")]
         [DisplayName("Tên sản phẩm")]
-        public string ProductName { get; set; }
+        public string Name { get; set; }
 
         [Required(ErrorMessage = "{0} không được bỏ trống!")]
         [DisplayName("Đơn giá")]
-        public double ProductPrice { get; set; }
+        public int Price { get; set; }
 
         [DisplayName("Hình ảnh")]
         [DataType(DataType.ImageUrl)]
-        public string ProductImage { get; set; }
+        public string Image { get; set; }
 
         [DisplayName("Mã loại")]
-        public int ProductTypeId { get; set; }
+        public int TypeId { get; set; }
         public ProductType ProductType { get; set; }
 
         [Required(ErrorMessage = "{0} không được bỏ trống!")]
@@ -35,15 +35,17 @@ namespace CakeBakery.Models
 
         [Required(ErrorMessage = "{0} không được bỏ trống!")]
         [DisplayName("Giảm giá")]
-        public double Discount { get; set; }
+        public int Discount { get; set; }
         //public int CommentId { get; set; }
 
         [DisplayName("Trạng thái")]
-        public bool ProductStatus { get; set; }
-        public List<MenuDetail> MenuDetails { get; set; }
+        public int Status { get; set; }
+      
         public List<OrderDetail> OrderDetails { get; set; }
         public List<Cart> Carts { get; set; }
         public List<Comment> Comments { get; set; }
+        public List<Menu> Menus { get; set; }
+
 
 
     }

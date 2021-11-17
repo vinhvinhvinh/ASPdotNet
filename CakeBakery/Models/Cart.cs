@@ -11,7 +11,7 @@ namespace CakeBakery.Models
     {
         [Key]
         [DisplayName("Mã giỏ hàng")]
-        public int CartId { get; set; }
+        public int Id { get; set; }
 
         [DisplayName("Mã khách hàng")]
         public int AccountId { get; set; }

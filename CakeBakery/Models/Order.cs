@@ -12,7 +12,7 @@ namespace CakeBakery.Models
         [Key]
 
         [DisplayName("Mã hóa đơn")]
-        public int OrderId { get; set; }
+        public int Id { get; set; }
 
         [DisplayName("Mã khách hàng")]
         public int AccountId { get; set; }
@@ -25,10 +25,10 @@ namespace CakeBakery.Models
 
         [DisplayName("Tổng hoá đơn")]
         //[DataType(DataType.Currency)]
-        public double Total { get; set; }
+        public int Total { get; set; }
 
         [DisplayName("Trạng thái")]
-        public bool Status { get; set; }
+        public int Status { get; set; }
 
         public List<OrderDetail> OrderDetails { get; set; }
     }

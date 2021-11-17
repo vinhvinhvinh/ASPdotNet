@@ -21,13 +21,10 @@ namespace CakeBakery.Migrations
 
             modelBuilder.Entity("CakeBakery.Models.Account", b =>
                 {
-                    b.Property<int>("AccountId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("AccountStatus")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Address1")
                         .IsRequired()
@@ -45,8 +42,8 @@ namespace CakeBakery.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("bit");
@@ -59,19 +56,22 @@ namespace CakeBakery.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.HasKey("AccountId");
+                    b.HasKey("Id");
 
                     b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("CakeBakery.Models.Cart", b =>
                 {
-                    b.Property<int>("CartId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -85,7 +85,7 @@ namespace CakeBakery.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("CartId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AccountId");
 
@@ -96,7 +96,7 @@ namespace CakeBakery.Migrations
 
             modelBuilder.Entity("CakeBakery.Models.Comment", b =>
                 {
-                    b.Property<int>("CommentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -107,16 +107,16 @@ namespace CakeBakery.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("IssueDate")
+                    b.Property<DateTime>("PostedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
-                    b.HasKey("CommentId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AccountId");
 
@@ -127,7 +127,7 @@ namespace CakeBakery.Migrations
 
             modelBuilder.Entity("CakeBakery.Models.Menu", b =>
                 {
-                    b.Property<int>("MenuId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -135,45 +135,25 @@ namespace CakeBakery.Migrations
                     b.Property<DateTime>("MenuDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("MenuStatus")
-                        .HasColumnType("bit");
-
-                    b.HasKey("MenuId");
-
-                    b.ToTable("Menus");
-                });
-
-            modelBuilder.Entity("CakeBakery.Models.MenuDetail", b =>
-                {
-                    b.Property<int>("MenuDetailId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("IsSoldOut")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("MenuId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
 
-                    b.HasKey("MenuDetailId");
-
-                    b.HasIndex("MenuId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("MenuDetails");
+                    b.ToTable("Menus");
                 });
 
             modelBuilder.Entity("CakeBakery.Models.Order", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -184,13 +164,13 @@ namespace CakeBakery.Migrations
                     b.Property<DateTime>("IssueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
-                    b.Property<double>("Total")
-                        .HasColumnType("float");
+                    b.Property<int>("Total")
+                        .HasColumnType("int");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("Id");
 
                     b.HasIndex("AccountId");
 
@@ -199,7 +179,7 @@ namespace CakeBakery.Migrations
 
             modelBuilder.Entity("CakeBakery.Models.OrderDetail", b =>
                 {
-                    b.Property<int>("OrderDetailId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -207,8 +187,8 @@ namespace CakeBakery.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -216,10 +196,7 @@ namespace CakeBakery.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("Total")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderDetailId");
+                    b.HasKey("Id");
 
                     b.HasIndex("OrderId");
 
@@ -230,7 +207,7 @@ namespace CakeBakery.Migrations
 
             modelBuilder.Entity("CakeBakery.Models.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -239,26 +216,29 @@ namespace CakeBakery.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Discount")
-                        .HasColumnType("float");
+                    b.Property<int>("Discount")
+                        .HasColumnType("int");
 
-                    b.Property<string>("ProductImage")
+                    b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProductName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("ProductPrice")
-                        .HasColumnType("float");
-
-                    b.Property<bool>("ProductStatus")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ProductTypeId")
+                    b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductId");
+                    b.Property<int?>("ProductTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductTypeId");
 
@@ -267,19 +247,19 @@ namespace CakeBakery.Migrations
 
             modelBuilder.Entity("CakeBakery.Models.ProductType", b =>
                 {
-                    b.Property<int>("ProductTypeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ProductTypeName")
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TypeName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("ProductTypeStatus")
-                        .HasColumnType("bit");
-
-                    b.HasKey("ProductTypeId");
+                    b.HasKey("Id");
 
                     b.ToTable("ProductTypes");
                 });
@@ -322,21 +302,13 @@ namespace CakeBakery.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("CakeBakery.Models.MenuDetail", b =>
+            modelBuilder.Entity("CakeBakery.Models.Menu", b =>
                 {
-                    b.HasOne("CakeBakery.Models.Menu", "Menu")
-                        .WithMany("MenuDetails")
-                        .HasForeignKey("MenuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CakeBakery.Models.Product", "Product")
-                        .WithMany("MenuDetails")
+                        .WithMany("Menus")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Menu");
 
                     b.Navigation("Product");
                 });
@@ -375,9 +347,7 @@ namespace CakeBakery.Migrations
                 {
                     b.HasOne("CakeBakery.Models.ProductType", "ProductType")
                         .WithMany("Products")
-                        .HasForeignKey("ProductTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductTypeId");
 
                     b.Navigation("ProductType");
                 });
@@ -391,11 +361,6 @@ namespace CakeBakery.Migrations
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("CakeBakery.Models.Menu", b =>
-                {
-                    b.Navigation("MenuDetails");
-                });
-
             modelBuilder.Entity("CakeBakery.Models.Order", b =>
                 {
                     b.Navigation("OrderDetails");
@@ -407,7 +372,7 @@ namespace CakeBakery.Migrations
 
                     b.Navigation("Comments");
 
-                    b.Navigation("MenuDetails");
+                    b.Navigation("Menus");
 
                     b.Navigation("OrderDetails");
                 });
