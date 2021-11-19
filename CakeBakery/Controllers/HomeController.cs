@@ -27,7 +27,6 @@ namespace CakeBakery.Controllers
             var lstMenus = _context.Menus.ToList();
             ViewBag.MenuList = lstMenus;
             return View();
-
         }
 
         public IActionResult Privacy()
