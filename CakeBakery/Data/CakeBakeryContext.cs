@@ -20,7 +20,6 @@ namespace CakeBakery.Data
         public DbSet<ProductType> ProductTypes { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Menu> Menus { get; set; }
-       
-
+        public object Product { get; internal set; }
     }
 }

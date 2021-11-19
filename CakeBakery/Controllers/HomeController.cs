@@ -6,21 +6,28 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CakeBakery.Models;
+using CakeBakery.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CakeBakery.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly CakeBakeryContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(CakeBakeryContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
+            var lstProducts = _context.Products.ToList();
+            ViewBag.ProductList = lstProducts;
+            var lstMenus = _context.Menus.ToList();
+            ViewBag.MenuList = lstMenus;
             return View();
+
         }
 
         public IActionResult Privacy()
