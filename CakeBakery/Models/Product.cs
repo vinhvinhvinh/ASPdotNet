@@ -26,7 +26,7 @@ namespace CakeBakery.Models
         public string Image { get; set; }
 
         [DisplayName("Mã loại")]
-        public int TypeId { get; set; }
+        public int ProductTypeId { get; set; }
         public ProductType ProductType { get; set; }
 
         [Required(ErrorMessage = "{0} không được bỏ trống!")]
