@@ -168,7 +168,7 @@
         <h2>Sản phẩm bán chạy</h2>
         <h5>Sáng tạo, kiên trì và chăm chỉ là những yếu tố tạo nên sự thành công của người thợ làm bánh </h5>
     </div>
-    
+
     <div class="cake_feature_slider owl-carousel">
         @foreach (Product product in lstProducts)
         {
@@ -257,7 +257,30 @@
     </div>
 </section>
 <!--================End Service We offer Area =================-->
-<partial name="_SpecialRecipe" />
+<!--================Special Recipe Area =================-->
+<section class="special_recipe_area">
+    <div class="container">
+        <div class="special_recipe_slider owl-carousel">
+            @foreach (Product product in lstProducts)
+            {
+                <div class="item">
+                    <div class="media">
+                        <div class="d-flex">
+                            <img src="img/recipe/@product.Image" alt="1">
+                        </div>
+                        <div class="media-body">
+                            <h4>@product.Name</h4>
+                            <p>@product.Description</p>
+                            <a class="w_view_btn"asp-controller="Products" asp-action="ProductDetail">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+<!--================End Special Recipe Area =================-->
 <!--================Discover Menu Area =================-->
 <section class="discover_menu_area menu_d_two">
     <div class="discover_menu_inner">
@@ -370,7 +393,7 @@
                                 <h5 style="font-size:23px;">@product.Price</h5>
                             </div>
                         </div>
-                        <div class="arivals_text" >
+                        <div class="arivals_text">
                             <h4 style="font-size:44px;">@product.Name</h4>
                             <a asp-controller="Products" asp-action="ProductDetail">Xem chi tiết</a>
                         </div>
