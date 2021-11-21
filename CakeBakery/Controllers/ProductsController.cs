@@ -152,6 +152,7 @@ namespace CakeBakery.Controllers
         public IActionResult ListProduct()
         {
             var productList = _context.Products.ToList();
+            ViewBag.ProductList = productList;
             return View(productList);
         }
         public IActionResult Search()
