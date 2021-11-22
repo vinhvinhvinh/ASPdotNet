@@ -179,7 +179,7 @@
                     </div>
                     <div class="cake_text">
                         <h4 style="font-size:23px;">@product.Price</h4>
-                        <a asp-controller="Products" asp-action="ProductDetail">
+                        <a asp-controller="Products" asp-action="ProductDetail" asp-route-id="@product.Id">
                             <h3>@product.Name</h3>
                         </a>
                         <a class="pest_btn" asp-controller="Carts" asp-action="Create">Thêm vào giỏ hàng</a>
