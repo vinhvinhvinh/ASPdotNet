@@ -1,8 +1,9 @@
-﻿@*
+﻿@model CakeBakery.Models.Product
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-   
+
     ViewData["Title"] = "Chi tiết bánh";
 }
 <partial name="_NavBar" />
@@ -11,13 +12,15 @@
     <div class="container">
         <div class="row product_d_price">
             <div class="col-lg-6">
-                <div class="product_img"><img class="img-fluid" src="img/product/product-details-1.jpg" alt=""></div>
+                <div class="product_img">
+                    <img class="img-fluid" src="~/img/cake-feature/@Model.Image" alt="@Model.Name" width="370" >
+                </div>
             </div>
             <div class="col-lg-6">
                 <div class="product_details_text">
-                    <h4>Tên bánh</h4>
-                    <p>Nguyên liệu chính </p>
-                    <h5>Giá :<span>30 000 VNĐ</span></h5>
+                    <h4>@Model.Name</h4>
+                    <p>@Model.Description </p>
+                    <h5>Giá :<span>@Model.Price</span></h5>
                     <div class="quantity_box">
                         <label for="quantity">Số lượng :</label>
                         <input type="text" placeholder="1" id="quantity">
