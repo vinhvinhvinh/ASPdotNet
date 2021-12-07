@@ -161,6 +161,9 @@ namespace CakeBakery.Controllers
         }
         public async Task<IActionResult> ProductDetail(int? id)
         {
+            var typeIdOfThisProd = _context.Products.Where(prod => prod.Id == id).Select(prod => prod.ProductTypeId).First();
+            var relateProd = _context.Products.Where(prod => prod.ProductTypeId == typeIdOfThisProd).ToList();
+            
             if (id == null)
             {
                 return NotFound();
@@ -172,9 +175,9 @@ namespace CakeBakery.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.relateProductPackage = relateProd;
             return View(product);
-            
+           
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿@{
-
+    
     ViewData["Title"] = "Trang chủ";
     List<Product> lstProducts = ViewBag.ProductList;
     List<Menu> lstMenus = ViewBag.MenuList;
@@ -271,7 +271,7 @@
                         <div class="media-body">
                             <h4>@product.Name</h4>
                             <p>@product.Description</p>
-                            <a class="w_view_btn"asp-controller="Products" asp-action="ProductDetail">Xem chi tiết</a>
+                            <a class="w_view_btn"asp-controller="Products" asp-action="ProductDetail" asp-route-id="@product.Id">Xem chi tiết</a>
                         </div>
                     </div>
                 </div>
@@ -294,7 +294,7 @@
                         @foreach (Menu menu in lstMenus)
                         {
                             <div class="discover_item">
-                                <a asp-controller="Products" asp-action="ProductDetail">
+                                <a asp-controller="Products" asp-action="ProductDetail" asp-route-id="@menu.ProductId">
                                     <h4>@menu.Product.Name </h4>
                                 </a>
                                 <p>Gía: <span>@menu.Product.Price</span></p>
@@ -348,7 +348,7 @@
                         <ul class="list_style">
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
-                            <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
+                            <li><a href="http://fb.com/vinhoi66"><i class="fa fa-facebook-square"></i></a></li>
                             <li><a href="#"><i class="fa fa-skype"></i></a></li>
                         </ul>
                     </div>
@@ -363,7 +363,7 @@
                         <ul class="list_style">
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
-                            <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
+                            <li><a href=""><i class="fa fa-facebook-square"></i></a></li>
                             <li><a href="#"><i class="fa fa-skype"></i></a></li>
                         </ul>
                     </div>
@@ -395,7 +395,7 @@
                         </div>
                         <div class="arivals_text">
                             <h4 style="font-size:44px;">@product.Name</h4>
-                            <a asp-controller="Products" asp-action="ProductDetail">Xem chi tiết</a>
+                            <a asp-controller="Products" asp-action="ProductDetail" asp-route-id="@product.Id">Xem chi tiết</a>
                         </div>
                     </div>
                 </div>
@@ -415,7 +415,7 @@
                                 </div>
                                 <div class="cake_text">
                                     <h4 style="font-size:23px;">@product.Price</h4>
-                                    <a asp-controller="Products" asp-action="ProductDetail">
+                                    <a asp-controller="Products" asp-action="ProductDetail" asp-route-id="@product.Id">
                                         <h3>@product.Name</h3>
                                     </a>
                                     <a class="pest_btn" asp-controller="Carts" asp-action="Create">Thêm vào giỏ hàng</a>

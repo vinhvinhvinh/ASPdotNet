@@ -4,11 +4,13 @@
 *@
 @{
 
+    var relateProd=ViewBag.relateProductPackage;
     ViewData["Title"] = "Chi tiết bánh";
 }
 <partial name="_NavBar" />
 <!--================Product Details Area =================-->
 <section class="product_details_area p_100">
+    
     <div class="container">
         <div class="row product_d_price">
             <div class="col-lg-6">
@@ -55,54 +57,22 @@
             <h2>Sản phẩm liên quan</h2>
         </div>
         <div class="row similar_product_inner">
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="img/cake-feature/c-feature-1.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Thêm vào giỏ hàng</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="img/cake-feature/c-feature-2.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
+            @foreach (var prod in relateProd)
+            {
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="cake_feature_item">
+                        <div class="cake_img">
+                            <img src="~/img/cake-feature/@prod.Image" alt="" width="270" height="226">
+                        </div>
+                        <div class="cake_text">
+                            <h4>@prod.Price</h4>
+                            <h3>@prod.Name</h3>
+                            <a class="pest_btn" href="#">Thêm vào giỏ hàng</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="img/cake-feature/c-feature-3.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="cake_feature_item">
-                    <div class="cake_img">
-                        <img src="img/cake-feature/c-feature-4.jpg" alt="">
-                    </div>
-                    <div class="cake_text">
-                        <h4>$29</h4>
-                        <h3>Strawberry Cupcakes</h3>
-                        <a class="pest_btn" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
+            }
+           
         </div>
     </div>
 </section>
