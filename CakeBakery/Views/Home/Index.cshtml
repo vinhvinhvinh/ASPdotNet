@@ -1,8 +1,10 @@
 ﻿@{
-    
+
     ViewData["Title"] = "Trang chủ";
     List<Product> lstProducts = ViewBag.ProductList;
     List<Menu> lstMenus = ViewBag.MenuList;
+    //unit of currency
+    var UOC_Format = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
 }
 <!--================Slider Area =================-->
 <section class="main_slider_area">
@@ -178,7 +180,7 @@
                         <img src="~/img/cake-feature/@product.Image" alt="@product.Id">
                     </div>
                     <div class="cake_text">
-                        <h4 style="font-size:23px;">@product.Price</h4>
+                        <h4 style="font-size:23px;">@String.Format(UOC_Format, "{0:c0}", @product.Price)</h4>
                         <a asp-controller="Products" asp-action="ProductDetail" asp-route-id="@product.Id">
                             <h3>@product.Name</h3>
                         </a>
@@ -266,7 +268,7 @@
                 <div class="item">
                     <div class="media">
                         <div class="d-flex">
-                            <img src="img/recipe/@product.Image" alt="1">
+                            <img src="~/img/recipe/@product.Image" alt="1">
                         </div>
                         <div class="media-body">
                             <h4>@product.Name</h4>
@@ -297,7 +299,7 @@
                                 <a asp-controller="Products" asp-action="ProductDetail" asp-route-id="@menu.ProductId">
                                     <h4>@menu.Product.Name </h4>
                                 </a>
-                                <p>Gía: <span>@menu.Product.Price</span></p>
+                                <p>Gía: <span>@String.Format(UOC_Format, "{0:c0}", menu.Product.Price)</span></p>
                                 <p>Số lượng còn lại: <span>@menu.Stock</span></p>
 
                             </div>
@@ -390,11 +392,11 @@
                         <div class="arivals_pic">
                             <img class="img-fluid" src="~/img/cake-feature/@product.Image" alt="@product.Id">
                             <div class="price_text">
-                                <h5 style="font-size:23px;">@product.Price</h5>
+                                <h5 style="font-size:23px;">@String.Format(UOC_Format, "{0:c0}", @product.Price)</h5>
                             </div>
                         </div>
                         <div class="arivals_text">
-                            <h4 style="font-size:44px;">@product.Name</h4>
+                            <h4 style="font-size:44px;">Donut Chocolate</h4>
                             <a asp-controller="Products" asp-action="ProductDetail" asp-route-id="@product.Id">Xem chi tiết</a>
                         </div>
                     </div>
@@ -414,7 +416,7 @@
                                     <img src="~/img/cake-feature/@product.Image" alt="@product.Id">
                                 </div>
                                 <div class="cake_text">
-                                    <h4 style="font-size:23px;">@product.Price</h4>
+                                    <h4 style="font-size:23px;">@String.Format(UOC_Format, "{0:c0}", @product.Price)</h4>
                                     <a asp-controller="Products" asp-action="ProductDetail" asp-route-id="@product.Id">
                                         <h3>@product.Name</h3>
                                     </a>
