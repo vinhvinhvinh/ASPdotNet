@@ -1,7 +1,9 @@
-﻿@*
+﻿@model IEnumerable<CakeBakery.Models.Product>
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    var UOC_Format = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
     ViewData["Title"] = "Kết quả tìm kiếm";
 }
 <partial name="_NavBar" />
@@ -11,114 +13,21 @@
         <div class="row product_inner_row">
             <div class="col-lg-9">
                 <div class="row product_item_inner">
-                    <div class="col-lg-4 col-md-4 col-6">
-                        <div class="cake_feature_item">
-                            <div class="cake_img">
-                                <img src="img/cake-feature/c-feature-1.jpg" alt="">
-                            </div>
-                            <div class="cake_text">
-                                <h4>$29</h4>
-                                <h3>Strawberry Cupcakes</h3>
-                                <a class="pest_btn" href="#">Thêm vào giỏ hàng</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-6">
-                        <div class="cake_feature_item">
-                            <div class="cake_img">
-                                <img src="img/cake-feature/c-feature-2.jpg" alt="">
-                            </div>
-                            <div class="cake_text">
-                                <h4>$29</h4>
-                                <h3>Strawberry Cupcakes</h3>
-                                <a class="pest_btn" href="#">Add to cart</a>
+                    @foreach (var prod in Model)
+                    {
+                        <div class="col-lg-4 col-md-4 col-6">
+                            <div class="cake_feature_item">
+                                <div class="cake_img">
+                                    <img src="~/img/cake-feature/@prod.Image" alt="">
+                                </div>
+                                <div class="cake_text">
+                                    <h4>@String.Format(UOC_Format, "{0:c0}", @prod.Price)</h4>
+                                    <h3>@prod.Name</h3>
+                                    <a class="pest_btn" href="#">Thêm vào giỏ hàng</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-6">
-                        <div class="cake_feature_item">
-                            <div class="cake_img">
-                                <img src="img/cake-feature/c-feature-3.jpg" alt="">
-                            </div>
-                            <div class="cake_text">
-                                <h4>$29</h4>
-                                <h3>Strawberry Cupcakes</h3>
-                                <a class="pest_btn" href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-6">
-                        <div class="cake_feature_item">
-                            <div class="cake_img">
-                                <img src="img/cake-feature/c-feature-4.jpg" alt="">
-                            </div>
-                            <div class="cake_text">
-                                <h4>$29</h4>
-                                <h3>Strawberry Cupcakes</h3>
-                                <a class="pest_btn" href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-6">
-                        <div class="cake_feature_item">
-                            <div class="cake_img">
-                                <img src="img/cake-feature/c-feature-5.jpg" alt="">
-                            </div>
-                            <div class="cake_text">
-                                <h4>$29</h4>
-                                <h3>Strawberry Cupcakes</h3>
-                                <a class="pest_btn" href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-6">
-                        <div class="cake_feature_item">
-                            <div class="cake_img">
-                                <img src="img/cake-feature/c-feature-6.jpg" alt="">
-                            </div>
-                            <div class="cake_text">
-                                <h4>$29</h4>
-                                <h3>Strawberry Cupcakes</h3>
-                                <a class="pest_btn" href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-6">
-                        <div class="cake_feature_item">
-                            <div class="cake_img">
-                                <img src="img/cake-feature/c-feature-7.jpg" alt="">
-                            </div>
-                            <div class="cake_text">
-                                <h4>$29</h4>
-                                <h3>Strawberry Cupcakes</h3>
-                                <a class="pest_btn" href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-6">
-                        <div class="cake_feature_item">
-                            <div class="cake_img">
-                                <img src="img/cake-feature/c-feature-8.jpg" alt="">
-                            </div>
-                            <div class="cake_text">
-                                <h4>$29</h4>
-                                <h3>Strawberry Cupcakes</h3>
-                                <a class="pest_btn" href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-6">
-                        <div class="cake_feature_item">
-                            <div class="cake_img">
-                                <img src="img/cake-feature/c-feature-9.jpg" alt="">
-                            </div>
-                            <div class="cake_text">
-                                <h4>$29</h4>
-                                <h3>Strawberry Cupcakes</h3>
-                                <a class="pest_btn" href="#">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
                 <div class="product_pagination">
                     <div class="left_btn">

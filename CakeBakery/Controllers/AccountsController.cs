@@ -22,6 +22,8 @@ namespace CakeBakery.Controllers
         // GET: Accounts
         public async Task<IActionResult> Index()
         {
+            //var res = _context.Accounts.Where(acc => acc.IsAdmin == true && acc.Address1.Contains("Thành phố Hồ Chí Minh"));
+            //return View(await res.ToListAsync());
             return View(await _context.Accounts.ToListAsync());
         }
 
