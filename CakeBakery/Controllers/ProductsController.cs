@@ -161,16 +161,16 @@ namespace CakeBakery.Controllers
         }
         public async Task<IActionResult> ProductDetail(int? id)
         {
-            var typeIdOfThisProd = _context.Products.Where(prod => prod.Id == id).Select(prod => prod.ProductTypeId).First();
+            //var typeIdOfThisProd = _context.Products.Where(prod => prod.Id == id).Select(prod => prod.ProductTypeId).First();
+            var typeIdOfThisProd = _context.Products.First(prod => prod.Id == id).ProductTypeId;
             var relateProd = _context.Products.Where(prod => prod.ProductTypeId == typeIdOfThisProd).ToList();
-            
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Products
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var product = await _context.Products.FirstOrDefaultAsync(prod => prod.Id == id);
             if (product == null)
             {
                 return NotFound();
