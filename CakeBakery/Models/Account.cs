@@ -21,13 +21,16 @@ namespace CakeBakery.Models
 
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "{0} không được bỏ trống")]
-        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$", ErrorMessage = "{0} có ít nhất 8 kí tự, có một ký tự thường, một chữ số và một ký tự đặc biệt!")]
+        //[RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$", ErrorMessage = "{0} có ít nhất 8 kí tự, có một ký tự thường, một chữ số và một ký tự đặc biệt!")]
         [DisplayName("Mật khẩu")]
         public string Password { get; set; }
 
+
+
         [EmailAddress(ErrorMessage = "{0} không hợp lệ!")]
-        [RegularExpression(@"[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}", ErrorMessage = "{0} không hợp lệ!")]
+        [RegularExpression(@"(\W|^)[\w.+\-]*@gmail\.com(\W|$)", ErrorMessage = "{0} phải có gmail")]
         [Required(ErrorMessage = "{0} không được bỏ trống!")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [DisplayName("Tên đầy đủ")]
@@ -51,7 +54,7 @@ namespace CakeBakery.Models
         public string Phone { get; set; }
 
         [DataType(DataType.Upload)]
-        [DisplayName("Đường dẫn ảnh đại diện")]
+        [DisplayName("Tên ảnh đại diện")]
         public string Avatar { get; set; }
 
         [DisplayName("Quyền quản trị viên")]

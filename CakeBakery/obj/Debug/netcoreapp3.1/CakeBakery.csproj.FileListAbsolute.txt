@@ -445,7 +445,7 @@ D:\HK5\ASP\ASPdotNet\CakeBakery\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstan
 D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\CakeBakery.Views.pdb
 D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\CakeBakery.csproj.CopyComplete
 D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\CakeBakery.genruntimeconfig.cache
-D:\CDTH19E_0306191487\HocKy5\ASPDotNet\DoAn\CakeBakery\CakeBakery\obj\Debug\netcoreapp3.1\CakeBakery.csprojAssemblyReference.cache
 D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\CakeBakery.csproj.AssemblyReference.cache
 D:\CDTH19E_0306191487\HocKy5\ASPDotNet\DoAn\CakeBakery\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
 D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
+D:\CDTH19E_0306191487\HocKy5\ASPDotNet\DoAn\CakeBakery\CakeBakery\obj\Debug\netcoreapp3.1\CakeBakery.csprojAssemblyReference.cache
