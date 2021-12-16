@@ -44,7 +44,7 @@ namespace CakeBakery.Models
         public List<OrderDetail> OrderDetails { get; set; }
         public List<Cart> Carts { get; set; }
         public List<Comment> Comments { get; set; }
-        public List<Menu> Menus { get; set; }
+        public List<MenuDetail> MenuDetails { get; set; }
 
 
 

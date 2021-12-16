@@ -24,8 +24,12 @@ namespace CakeBakery.Controllers
         {
             var lstProducts = _context.Products.ToList();
             ViewBag.ProductList = lstProducts;
-            var lstMenus = _context.Menus.ToList();
-            ViewBag.MenuList = lstMenus;
+            //lấy MenuId của ngày hôm nay
+            int menuId = _context.Menus.Where(menu => menu.MenuDate == DateTime.Today).Select(menu=>menu.Id).FirstOrDefault();
+            //get List MenuDetail của MenuId trên
+            var menu2day = _context.MenuDetails.Where(i => i.MenuId == menuId).ToList();
+            //đóng gói
+            ViewBag.MenuToday = menu2day;
             return View();
         }
 
