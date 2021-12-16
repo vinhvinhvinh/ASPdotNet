@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CakeBakery.Migrations
 {
     [DbContext(typeof(CakeBakeryContext))]
-    [Migration("20211119105126_fixTypeId")]
-    partial class fixTypeId
+    [Migration("20211216191236_reworkDB")]
+    partial class reworkDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -137,10 +137,25 @@ namespace CakeBakery.Migrations
                     b.Property<DateTime>("MenuDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
+                    b.HasKey("Id");
+
+                    b.ToTable("Menus");
+                });
+
+            modelBuilder.Entity("CakeBakery.Models.MenuDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MenuId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Stock")
@@ -148,9 +163,11 @@ namespace CakeBakery.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MenuId");
+
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Menus");
+                    b.ToTable("MenuDetails");
                 });
 
             modelBuilder.Entity("CakeBakery.Models.Order", b =>
@@ -165,6 +182,9 @@ namespace CakeBakery.Migrations
 
                     b.Property<DateTime>("IssueDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ShippingAddress")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -301,13 +321,21 @@ namespace CakeBakery.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("CakeBakery.Models.Menu", b =>
+            modelBuilder.Entity("CakeBakery.Models.MenuDetail", b =>
                 {
+                    b.HasOne("CakeBakery.Models.Menu", "Menu")
+                        .WithMany("MenuDetails")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("CakeBakery.Models.Product", "Product")
-                        .WithMany("Menus")
+                        .WithMany("MenuDetails")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Menu");
 
                     b.Navigation("Product");
                 });
@@ -362,6 +390,11 @@ namespace CakeBakery.Migrations
                     b.Navigation("Orders");
                 });
 
+            modelBuilder.Entity("CakeBakery.Models.Menu", b =>
+                {
+                    b.Navigation("MenuDetails");
+                });
+
             modelBuilder.Entity("CakeBakery.Models.Order", b =>
                 {
                     b.Navigation("OrderDetails");
@@ -373,7 +406,7 @@ namespace CakeBakery.Migrations
 
                     b.Navigation("Comments");
 
-                    b.Navigation("Menus");
+                    b.Navigation("MenuDetails");
 
                     b.Navigation("OrderDetails");
                 });

@@ -10,22 +10,23 @@ using CakeBakery.Models;
 
 namespace CakeBakery.Controllers
 {
-    public class MenusController : Controller
+    public class MenuDetailsController : Controller
     {
         private readonly CakeBakeryContext _context;
 
-        public MenusController(CakeBakeryContext context)
+        public MenuDetailsController(CakeBakeryContext context)
         {
             _context = context;
         }
 
-        // GET: Menus
+        // GET: MenuDetails
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Menus.ToListAsync());
+            var cakeBakeryContext = _context.MenuDetails.Include(m => m.Menu).Include(m => m.Product);
+            return View(await cakeBakeryContext.ToListAsync());
         }
 
-        // GET: Menus/Details/5
+        // GET: MenuDetails/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +34,45 @@ namespace CakeBakery.Controllers
                 return NotFound();
             }
 
-            var menu = await _context.Menus
+            var menuDetail = await _context.MenuDetails
+                .Include(m => m.Menu)
+                .Include(m => m.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (menu == null)
+            if (menuDetail == null)
             {
                 return NotFound();
             }
 
-            return View(menu);
+            return View(menuDetail);
         }
 
-        // GET: Menus/Create
+        // GET: MenuDetails/Create
         public IActionResult Create()
         {
+            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id");
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Description");
             return View();
         }
 
-        // POST: Menus/Create
+        // POST: MenuDetails/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MenuDate,Status")] Menu menu)
+        public async Task<IActionResult> Create([Bind("Id,MenuId,ProductId,Stock")] MenuDetail menuDetail)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(menu);
+                _context.Add(menuDetail);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(menu);
+            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id", menuDetail.MenuId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Description", menuDetail.ProductId);
+            return View(menuDetail);
         }
 
-        // GET: Menus/Edit/5
+        // GET: MenuDetails/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +80,24 @@ namespace CakeBakery.Controllers
                 return NotFound();
             }
 
-            var menu = await _context.Menus.FindAsync(id);
-            if (menu == null)
+            var menuDetail = await _context.MenuDetails.FindAsync(id);
+            if (menuDetail == null)
             {
                 return NotFound();
             }
-            return View(menu);
+            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id", menuDetail.MenuId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Description", menuDetail.ProductId);
+            return View(menuDetail);
         }
 
-        // POST: Menus/Edit/5
+        // POST: MenuDetails/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,MenuDate,Status")] Menu menu)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MenuId,ProductId,Stock")] MenuDetail menuDetail)
         {
-            if (id != menu.Id)
+            if (id != menuDetail.Id)
             {
                 return NotFound();
             }
@@ -97,12 +106,12 @@ namespace CakeBakery.Controllers
             {
                 try
                 {
-                    _context.Update(menu);
+                    _context.Update(menuDetail);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MenuExists(menu.Id))
+                    if (!MenuDetailExists(menuDetail.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +122,12 @@ namespace CakeBakery.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(menu);
+            ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id", menuDetail.MenuId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Description", menuDetail.ProductId);
+            return View(menuDetail);
         }
 
-        // GET: Menus/Delete/5
+        // GET: MenuDetails/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +135,32 @@ namespace CakeBakery.Controllers
                 return NotFound();
             }
 
-            var menu = await _context.Menus
+            var menuDetail = await _context.MenuDetails
+                .Include(m => m.Menu)
+                .Include(m => m.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (menu == null)
+            if (menuDetail == null)
             {
                 return NotFound();
             }
 
-            return View(menu);
+            return View(menuDetail);
         }
 
-        // POST: Menus/Delete/5
+        // POST: MenuDetails/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var menu = await _context.Menus.FindAsync(id);
-            _context.Menus.Remove(menu);
+            var menuDetail = await _context.MenuDetails.FindAsync(id);
+            _context.MenuDetails.Remove(menuDetail);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MenuExists(int id)
+        private bool MenuDetailExists(int id)
         {
-            return _context.Menus.Any(e => e.Id == id);
+            return _context.MenuDetails.Any(e => e.Id == id);
         }
     }
 }

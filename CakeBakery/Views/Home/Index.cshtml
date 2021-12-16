@@ -2,7 +2,8 @@
 
     ViewData["Title"] = "Trang chủ";
     List<Product> lstProducts = ViewBag.ProductList;
-    List<Menu> lstMenus = ViewBag.MenuList;
+    List<MenuDetail> menuToday = ViewBag.MenuToday;
+   
     //unit of currency
     var UOC_Format = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
 }
@@ -170,7 +171,7 @@
         <h2>Sản phẩm bán chạy</h2>
         <h5>Sáng tạo, kiên trì và chăm chỉ là những yếu tố tạo nên sự thành công của người thợ làm bánh </h5>
     </div>
-
+    
     <div class="cake_feature_slider owl-carousel">
         @foreach (Product product in lstProducts)
         {
@@ -293,7 +294,7 @@
             <div class="row" style="padding-left: 350px">
                 <div class="col-lg-10">
                     <div class="discover_item_inner">
-                        @foreach (Menu menu in lstMenus)
+                        @foreach (MenuDetail menu in menuToday)
                         {
                             <div class="discover_item">
                                 <a asp-controller="Products" asp-action="ProductDetail" asp-route-id="@menu.ProductId">

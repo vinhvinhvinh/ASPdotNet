@@ -23,6 +23,9 @@ namespace CakeBakery.Models
         [DataType(DataType.Date, ErrorMessage = "{0} không hợp lệ!")]
         public DateTime IssueDate { get; set; }
 
+        [DisplayName("Nơi giao hàng")]
+        public string ShippingAddress { get; set; }
+
         [DisplayName("Tổng hoá đơn")]
         //[DataType(DataType.Currency)]
         public int Total { get; set; }
