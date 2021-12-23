@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using CakeBakery.Models;
 using CakeBakery.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace CakeBakery.Controllers
 {
@@ -22,6 +23,14 @@ namespace CakeBakery.Controllers
 
         public IActionResult Index()
         {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if(HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
+
             var lstProducts = _context.Products.ToList();
             ViewBag.ProductList = lstProducts;
             //lấy MenuId của ngày hôm nay
@@ -46,6 +55,49 @@ namespace CakeBakery.Controllers
         public IActionResult Login()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Login(string Username,string Password)
+        {
+
+            //----------Login with Cookie
+
+            Account login = _context.Accounts.Where(a => a.Username == Username && a.Password == Password).FirstOrDefault();
+            if (login!=null)
+            {
+                CookieOptions cookieDate = new CookieOptions()
+                {
+                    Expires = DateTime.Now.AddDays(30)
+                };
+                
+                HttpContext.Response.Cookies.Append("AccountID",login.Id.ToString(),cookieDate);
+                HttpContext.Response.Cookies.Append("AccountName", login.FullName.ToString(),cookieDate);
+                HttpContext.Response.Cookies.Append("AccountAvatar", login.Avatar.ToString(),cookieDate);
+
+                if (!login.IsAdmin)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Products");
+                }
+                
+            }
+            else
+            {
+                ViewBag.LoginFailMessage = "Login Fail. Incorrect Username or Password";
+                return View();
+            }
+
+        }
+        public IActionResult Logout()
+        {
+            HttpContext.Response.Cookies.Append("AccountID", "", new CookieOptions { Expires=DateTime.Now.AddDays(-1)}) ;
+            HttpContext.Response.Cookies.Append("AccountName", "", new CookieOptions { Expires = DateTime.Now.AddDays(-1)});
+            HttpContext.Response.Cookies.Append("AccountAvatar", "", new CookieOptions { Expires = DateTime.Now.AddDays(-1)});
+            return RedirectToAction("Index", "Home");
+
         }
     }
 }

@@ -7,22 +7,42 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CakeBakery.Data;
 using CakeBakery.Models;
+//upload file
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace CakeBakery.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly CakeBakeryContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductsController(CakeBakeryContext context)
+        public ProductsController(CakeBakeryContext context,IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+            //Thông tin Admin
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
+            //Trả về các sản phẩm có số lượng tồn kho nhiều từ thứ 3-10 (skip 3 take 7)
+            //int menuId = _context.Menus.Where(menu => menu.MenuDate == DateTime.Today).Select(menu => menu.Id).FirstOrDefault(); //b1 lấy menu của ngày hôm nay
+            //var menuToday = _context.MenuDetails.Where(i => i.MenuId == menuId);
+            //var res=from prod in _context.Products
+            //        join prodInMenu in menuToday
+            //        on prod.Id equals prodInMenu.Id
+            //        select new {Id=prod.Id,Name=prod.Name,Stock=prodInMenu.Stock};
+            //ViewBag.MenuProd = res;
+            return View(await _context.Products.ToListAsync()); // default
         }
 
         // GET: Products/Details/5
@@ -54,12 +74,31 @@ namespace CakeBakery.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Image,ProductTypeId,Description,Discount,Status")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Image,ImageFile,ProductTypeId,Description,Discount,Status")] Product product)
         {
+            
             if (ModelState.IsValid)
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
+
+                //Xử lý upload file
+
+                if (product.ImageFile != null)
+                {
+                    var filename = product.Id.ToString() + Path.GetExtension(product.ImageFile.FileName);
+                    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "cake-feature");
+                    var filePath = Path.Combine(uploadPath, filename);
+
+                    using (FileStream fs = System.IO.File.Create(filePath))
+                    {
+                        product.ImageFile.CopyTo(fs);
+                        fs.Flush();
+                    }
+                    product.Image = filename;
+                    _context.Products.Update(product);
+                    await _context.SaveChangesAsync();
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(product);

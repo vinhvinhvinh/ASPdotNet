@@ -2,6 +2,7 @@
 @{
     Layout = "";
     ViewData["Title"] = "Login";
+    @model CakeBakery.Models.Account;
 }
 
 <!DOCTYPE html>
@@ -54,14 +55,15 @@
                             </a>
                         </div>
                         <div class="login-form">
-                            <form action="" method="post">
+                            <form asp-controller="Home" asp-action="Login" method="post">
                                 <div class="form-group">
-                                    <label>Tên đăng nhập</label>
-                                    <input class="au-input au-input--full" type="text" name="username" placeholder="Tên đăng nhập...">
+                                    <label asp-for="Username">Tên đăng nhập</label>
+                                    <input asp-for="Username" class="au-input au-input--full" type="text" name="username" placeholder="Tên đăng nhập...">
                                 </div>
                                 <div class="form-group">
-                                    <label>Mật khẩu</label>
-                                    <input class="au-input au-input--full" type="password" name="password" placeholder="Mật khẩu...">
+                                    <label asp-for="Password">Mật khẩu</label>
+                                    <input asp-for="Password" class="au-input au-input--full" type="password" name="password" placeholder="Mật khẩu...">
+                                    <span style="color:red">@ViewBag.LoginFailMessage</span>
                                 </div>
                                 <div class="login-checkbox">
                                     <label>
@@ -72,6 +74,7 @@
                                     </label>
                                 </div>
                                 <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">sign in</button>
+                               
                                 @*<div class="social-login-content">
                                     <div class="social-button">
                                         <button class="au-btn au-btn--block au-btn--blue m-b-20">sign in with facebook</button>
