@@ -1,5 +1,7 @@
 ﻿@{ 
     ViewData["Tiltle"] = "Trang quản lý";
+    var username_login = ViewBag.Fullname;
+    var user_avatar_login = ViewBag.Avatar;
 }
 
 <!DOCTYPE html>
@@ -52,10 +54,10 @@
             <div class="menu-sidebar2__content js-scrollbar1">
                 <div class="account2">
                     <div class="image img-cir img-120">
-                        <img src="~/img/icon/meowwwwww.jpg" alt="   " />
+                        <img src="~/img/user/@user_avatar_login" alt="   " />
                     </div>
-                    <h4 class="name">Meow Meow</h4>
-                    <a href="#">Sign out</a>
+                    <h4 class="name">@username_login</h4>
+                    <a asp-controller="Home" asp-action="Logout">Log out</a>
                 </div>
                 <nav class="navbar-sidebar2">
                     <ul class="list-unstyled navbar__list">

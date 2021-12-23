@@ -1,7 +1,15 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 *@
 @{
+    
+
+    
+
+    var username_login=ViewBag.Fullname;
+    var user_avatar_login=ViewBag.Avatar;
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -34,6 +42,70 @@
 
     <link href="~/css/style.css" rel="stylesheet">
     <link href="~/css/responsive.css" rel="stylesheet">
+    
+    <style>
+        .user-area {
+            background-color: whitesmoke;
+            border-radius: 40px;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 160px;
+            height: 40px;
+            transition: all 0.3s;
+            color: red;
+        }
+            .user-area:hover {
+                border: solid hotpink 2px;
+            }
+
+            .user-area .avt-area {
+                transition: all 0.3s;
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                border: solid white 2px;
+            }
+
+        .uname span{
+            font-family:cursive;
+            color:black;
+        }
+        .avt-area .avt {
+            max-width: 100%;
+            max-height: 100%;
+            vertical-align: top;
+            border-radius: 50%;
+            object-fit: contain;
+        }
+        .logout{
+            position:absolute;
+            right:70px;
+            top:13px;
+        }
+
+        .logout a{
+            color:white;
+        }
+        .login-btn {
+           display:flex;
+           align-items:center;
+            justify-content:center;
+            background-color: whitesmoke;
+            border-radius: 40px;
+            width: 75px;
+            height: 35px;
+            transition: all 0.3s;
+            color: black;
+        }
+
+        .login-btn:hover{
+            background-color:black;
+            color:white;
+        }
+        
+    </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -63,7 +135,43 @@
                         <li class="shop_cart"><a href="#"><i class="lnr lnr-cart"></i></a></li>
                         <li><a class="popup-with-zoom-anim" href="#test-search"><i class="fa fa-search"></i></a></li>
                     </ul>
+                    @* Avatar *@
+                    @if (username_login != null)
+                    {
+                        <ul style="top:9px" class="h_search list_style">
+                            <li>
+                                <div class="user-area">
+                                    <a asp-controller="" asp-action="">
+                                        <div class="avt-area">
+                                            <img class="avt" src="~/img/user/@user_avatar_login" />
+                                        </div>
+                                    </a>
+                                    <div style="width:2px"></div>
+                                    <div class="uname">
+                                        <a asp-controller="" asp-action=""><span>@username_login</span></a>
+                                    </div>
+                                    <div style="width:10px"></div>
+
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="logout">
+                            <a asp-controller="Home" asp-action="Logout"><i class="fa fa-power-off"></i><span style="margin-left:5px;">Logout</span></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <ul class="h_search list_style">
+                            <li>
+                                <a asp-controller="Home" asp-action="Login">
+                                    <div class="login-btn"><span>Login</span></div>
+                                </a>
+                            </li>
+                        </ul>
+                    }
+
                 </div>
+                
             </div>
         </div>
         <div class="main_menu_two">
@@ -195,12 +303,15 @@
     <div class="search_area zoom-anim-dialog mfp-hide" id="test-search">
         <div class="search_box_inner">
             <h3>Tìm kiếm</h3>
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Nhập từ khóa cần tìm...">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button"><i class="icon icon-Search"></i></button>
-                </span>
-            </div>
+            <form asp-controller="Home" asp-action="Search" method="post">
+
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Nhập từ khóa cần tìm...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><i class="icon icon-Search"></i></button>
+                    </span>
+                </div>
+            </form>
         </div>
     </div>
     <!--================End Search Box Area =================-->

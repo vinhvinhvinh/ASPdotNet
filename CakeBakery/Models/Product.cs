@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CakeBakery.Models
 {
@@ -25,6 +27,9 @@ namespace CakeBakery.Models
         [DataType(DataType.ImageUrl)]
         public string Image { get; set; }
 
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
+
         [DisplayName("Mã loại")]
         public int ProductTypeId { get; set; }
         public ProductType ProductType { get; set; }
@@ -38,7 +43,7 @@ namespace CakeBakery.Models
         public int Discount { get; set; }
         //public int CommentId { get; set; }
 
-        [DisplayName("Trạng thái")]
+        [DisplayName("Còn hiệu lực")]
         public int Status { get; set; }
       
         public List<OrderDetail> OrderDetails { get; set; }
