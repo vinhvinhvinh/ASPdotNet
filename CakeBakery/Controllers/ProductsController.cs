@@ -194,10 +194,13 @@ namespace CakeBakery.Controllers
             ViewBag.ProductList = productList;
             return View(productList);
         }
-        public IActionResult Search()
+        public IActionResult Search(string keyword="")
         {
-            var productList = _context.Products.ToList();
-            ViewBag.ProductList = productList;
+            if (keyword == null)
+            {
+                keyword = "";
+            }
+            var productList = _context.Products.Where(prod=>prod.Name.Contains(keyword)|| prod.Description.Contains(keyword) || prod.ProductType.TypeName.Contains(keyword)).ToList();
             return View(productList);
         }
         public async Task<IActionResult> ProductDetail(int? id)
