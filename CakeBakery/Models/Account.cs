@@ -13,9 +13,9 @@ namespace CakeBakery.Models
         [DisplayName("Mã tài khoản")]
         public int Id { get; set; }
 
-        [DataType(DataType.Text)]
+       
         [Required(ErrorMessage = "{0} không được bỏ trống")]
-        [StringLength(20, MinimumLength = 6, ErrorMessage = "{0} từ 6-20 kí tự")]
+        
         [DisplayName("Tên đăng nhập")]
         public string Username { get; set; }
 
@@ -27,7 +27,7 @@ namespace CakeBakery.Models
 
 
 
-        [EmailAddress(ErrorMessage = "{0} không hợp lệ!")]
+        
         [RegularExpression(@"(\W|^)[\w.+\-]*@gmail\.com(\W|$)", ErrorMessage = "{0} phải có gmail")]
         [Required(ErrorMessage = "{0} không được bỏ trống!")]
         [DataType(DataType.EmailAddress)]
@@ -40,20 +40,20 @@ namespace CakeBakery.Models
 
         [DisplayName("Địa chỉ")]
         [Required(ErrorMessage = "{0} không được bỏ trống")]
-        [DataType(DataType.Text)]
+        
         public string Address1 { get; set; }
 
         [DisplayName("Địa chỉ 2")]
-        [DataType(DataType.Text)]
+        
         public string Address2 { get; set; }
 
-        [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"0\d{9}", ErrorMessage = "{0} không hợp lệ!")]
+        
+        
         [Required(ErrorMessage = "{0} không được bỏ trống!")]
         [DisplayName("Số điện thoại")]
         public string Phone { get; set; }
 
-        [DataType(DataType.Upload)]
+       
         [DisplayName("Tên ảnh đại diện")]
         public string Avatar { get; set; }
 

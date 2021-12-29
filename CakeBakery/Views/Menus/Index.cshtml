@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<CakeBakery.Models.Menu>
 
 @{
-    ViewData["Title"] = "Index";
+    Layout = "_LayoutAdmin";
+    ;    ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
@@ -9,6 +10,14 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-controller="Menus" asp-action="Search" method="get">
+    <div style="margin-top:20px" class="input-group">
+        <input type="date" name="userInput" class="form-control" placeholder="Nhập từ khóa cần tìm...">
+        <span class="input-group-btn">
+            <button style="width:50px" ;class="btn btn-default" type="submit"><i style="color:black;font-size:25px;" class="zmdi zmdi-search"></i></button>
+        </span>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>

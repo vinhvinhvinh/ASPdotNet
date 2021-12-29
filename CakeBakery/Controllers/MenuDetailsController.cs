@@ -162,5 +162,15 @@ namespace CakeBakery.Controllers
         {
             return _context.MenuDetails.Any(e => e.Id == id);
         }
+        public IActionResult Search(DateTime userInput)
+        {
+            if (userInput == null)
+            {
+                userInput = DateTime.Now;
+            }
+            var menuList = _context.Menus.Where(menu => menu.MenuDate == userInput).ToList();
+            ViewBag.ggg = menuList;
+            return View(menuList);
+        }
     }
 }

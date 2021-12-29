@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<CakeBakery.Models.OrderDetail>
 
 @{
+    Layout = "_LayoutAdmin";
     ViewData["Title"] = "Index";
 }
 
@@ -9,11 +10,19 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-controller="OrderDetails" asp-action="Search" method="get">
+    <div style="margin-top:20px" class="input-group">
+        <input type="text" name="userInput" class="form-control" placeholder="Nhập từ khóa cần tìm...">
+        <span class="input-group-btn">
+            <button style="width:50px" ;class="btn btn-default" type="submit"><i style="color:black;font-size:25px;" class="zmdi zmdi-search"></i></button>
+        </span>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Order)
+                @Html.DisplayNameFor(model => model.Order.Id)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Product)
@@ -34,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.Order.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Product.Description)
+                @Html.DisplayFor(modelItem => item.Product.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Quantity)

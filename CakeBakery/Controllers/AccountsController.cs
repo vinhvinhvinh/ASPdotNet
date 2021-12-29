@@ -151,5 +151,15 @@ namespace CakeBakery.Controllers
         {
             return _context.Accounts.Any(e => e.Id == id);
         }
+
+        public IActionResult Search(string userInput)
+        {
+            if (userInput == null)
+            {
+                userInput = "";
+            }
+            var accounttList = _context.Accounts.Where(acc => acc.Username.Contains(userInput) || acc.Email.Contains(userInput) || acc.FullName.Contains(userInput) || acc.Phone.Contains(userInput) || acc.Address1.Contains(userInput) || acc.Address2.Contains(userInput)).ToList();
+            return View(accounttList);
+        }
     }
 }
