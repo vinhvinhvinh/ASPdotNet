@@ -1,45 +1,45 @@
-﻿@model IEnumerable<CakeBakery.Models.Order>
+﻿@model IEnumerable<CakeBakery.Models.Product>
 
 @{
     Layout = "_LayoutAdmin";
-    ViewData["Title"] = "Hóa đơn";
+    ViewData["Title"] = "Bánh";
+
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Hóa đơn mới</a>
+    <a asp-action="Create">Create New</a>
 </p>
-<form asp-controller="Orders" asp-action="Search" method="get">
+<form asp-controller="Products" asp-action="SearchAdmin" method="get">
     <div style="margin-top:20px" class="input-group">
         <input type="text" name="userInput" class="form-control" placeholder="Nhập từ khóa cần tìm...">
-
-        <span class="input-group-btn">
-            <button style="width:50px" ;class="btn btn-default" type="submit"><i style="color:black;font-size:25px;" class="zmdi zmdi-search"></i></button>
-        </span>
-    </div>
-</form>
-<form asp-controller="Orders" asp-action="ByIssueDate" method="get">
-    <div style="margin-top:20px" class="input-group">
-        <input type="date" name="userInput" class="form-control" placeholder="Chọn ngày">
         <span class="input-group-btn">
             <button style="width:50px" ;class="btn btn-default" type="submit"><i style="color:black;font-size:25px;" class="zmdi zmdi-search"></i></button>
         </span>
     </div>
 </form>
 <div style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;margin-top:20px;">
-
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Account.FullName)
+                    @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.IssueDate)
+                    @Html.DisplayNameFor(model => model.Price)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Total)
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductTypeId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Discount)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Status)
@@ -52,13 +52,22 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Account.FullName)
+                        @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.IssueDate)
+                        @Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Total)
+                        @Html.DisplayFor(modelItem => item.Image)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductTypeId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Discount)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Status)
@@ -72,5 +81,5 @@
             }
         </tbody>
     </table>
-
 </div>
+

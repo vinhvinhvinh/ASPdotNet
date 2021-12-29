@@ -153,5 +153,15 @@ namespace CakeBakery.Controllers
         {
             return View();
         }
+        
+        public IActionResult Search(string userInput = "")
+        {
+            if (userInput == null)
+            {
+                userInput = "";
+            }
+            var lstProductTypes = _context.ProductTypes.Where(type => type.TypeName.Contains(userInput)).ToList();
+            return View(lstProductTypes);
+        }
     }
 }

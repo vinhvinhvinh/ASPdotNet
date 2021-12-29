@@ -464,3 +464,11 @@ D:\CDTH19E_0306191487\HocKy5\ASPDotNet\DoAn\CakeBakery\CakeBakery\obj\Debug\netc
 D:\CDTH19E_0306191487\HocKy5\ASPDotNet\DoAn\CakeBakery\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\MenuDetails\Search.cshtml.g.cs
 D:\CDTH19E_0306191487\HocKy5\ASPDotNet\DoAn\CakeBakery\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\Orders\Search.cshtml.g.cs
 D:\CDTH19E_0306191487\HocKy5\ASPDotNet\DoAn\CakeBakery\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\OrderDetails\Search.cshtml.g.cs
+D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\Accounts\Search.cshtml.g.cs
+D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\MenuDetails\Search.cshtml.g.cs
+D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\Menus\Search.cshtml.g.cs
+D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\OrderDetails\Search.cshtml.g.cs
+D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\Orders\Search.cshtml.g.cs
+D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\Products\SearchAdmin.cshtml.g.cs
+D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\ProductTypes\Search.cshtml.g.cs
+D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\Orders\ByIssueDate.cshtml.g.cs
