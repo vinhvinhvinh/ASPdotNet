@@ -20,7 +20,7 @@ namespace CakeBakery.Controllers
         {
             _context = context;
         }
-
+        
         public IActionResult Index()
         {
             // Kiểm tra Cookie - lấy Username từ Cookie
