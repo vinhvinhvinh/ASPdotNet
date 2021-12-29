@@ -14,14 +14,21 @@
         </button>
     </a>
 </p>
-
+<form asp-controller="Orders" asp-action="Search" method="get">
+    <div style="margin-top:20px" class="input-group">
+        <input type="text" name="userInput" class="form-control" placeholder="Nhập từ khóa cần tìm...">
+        <span class="input-group-btn">
+            <button style="width:50px" ;class="btn btn-default" type="submit"><i style="color:black;font-size:25px;" class="zmdi zmdi-search"></i></button>
+        </span>
+    </div>
+</form>
 <div style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;margin-top:20px;">
 
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Account)
+                    @Html.DisplayNameFor(model => model.Account.FullName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.IssueDate)
@@ -40,7 +47,7 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Account.Address1)
+                        @Html.DisplayFor(modelItem => item.Account.FullName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.IssueDate)

@@ -156,5 +156,14 @@ namespace CakeBakery.Controllers
         {
             return _context.Orders.Any(e => e.Id == id);
         }
+        public IActionResult Search(string userInput)
+        {
+            if (userInput == null)
+            {
+                userInput = "";
+            }
+            var ordList = _context.Orders.Where(ord=>ord.Account.FullName.Contains(userInput)).ToList();
+            return View(ordList);
+        }
     }
 }
