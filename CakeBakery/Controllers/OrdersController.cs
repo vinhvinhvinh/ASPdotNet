@@ -162,8 +162,19 @@ namespace CakeBakery.Controllers
             {
                 userInput = "";
             }
-            var ordList = _context.Orders.Where(ord=>ord.Account.FullName.Contains(userInput)).ToList();
+            
+            var ordList = _context.Orders.Include(ord => ord.Account).Where(ord=>ord.Account.FullName.Contains(userInput)||ord.ShippingAddress.Contains(userInput)).ToList();
             return View(ordList);
+        }
+        public IActionResult ByIssueDate(DateTime userInput)
+        {
+            if (userInput == null)
+            {
+                userInput = DateTime.Now;
+            }
+            var lstOrders = _context.Orders.Include(ord => ord.Account).Where(ord=>ord.IssueDate == userInput).ToList();
+            ViewBag.ggg = lstOrders;
+            return View(lstOrders);
         }
     }
 }

@@ -14,7 +14,7 @@
         </button>
     </a>
 </p>
-<form asp-controller="ProductTypes" asp-action="Index" method="get">
+<form asp-controller="ProductTypes" asp-action="Search" method="get">
     <div style="margin-top:20px" class="input-group">
         <input type="text" name="userInput" class="form-control" placeholder="Nhập từ khóa cần tìm...">
         <span class="input-group-btn">
@@ -38,19 +38,28 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeName)
+                </td>
+                @if (item.Status == 1)
+                {
                     <td>
-                        @Html.DisplayFor(modelItem => item.TypeName)
+                        Hoạt động
                     </td>
+                }
+                else
+                {
                     <td>
-                        @Html.DisplayFor(modelItem => item.Status)
+                        Vô hiệu hóa
                     </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
+                }
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
