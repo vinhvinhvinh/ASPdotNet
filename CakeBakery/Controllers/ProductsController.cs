@@ -44,7 +44,7 @@ namespace CakeBakery.Controllers
             //        on prod.Id equals prodInMenu.Id
             //        select new {Id=prod.Id,Name=prod.Name,Stock=prodInMenu.Stock};
             //ViewBag.MenuProd = res;
-            return View(await _context.Products.ToListAsync()); // default
+            return View(await _context.Products.Include(prod=>prod.ProductType).ToListAsync()); // default
         }
        
 
@@ -233,6 +233,17 @@ namespace CakeBakery.Controllers
             ViewBag.relateProductPackage = relateProd;
             return View(product);
            
+        }
+
+        [HttpGet]
+        public IActionResult SearchAdmin(string userInput = "")
+        {
+            if (userInput == null)
+            {
+                userInput = "";
+            }
+            var productList = _context.Products.Where(prod => prod.Name.Contains(userInput) || prod.Description.Contains(userInput) || prod.ProductType.TypeName.Contains(userInput)).ToList();
+            return View(productList);
         }
     }
 }
