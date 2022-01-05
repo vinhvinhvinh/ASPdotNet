@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CakeBakery.Data;
 using CakeBakery.Models;
+using Microsoft.AspNetCore.Http;
 //upload file
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
@@ -24,6 +25,7 @@ namespace CakeBakery.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
+        
         // GET: Products
         public async Task<IActionResult> Index()
         {
@@ -44,6 +46,7 @@ namespace CakeBakery.Controllers
             //ViewBag.MenuProd = res;
             return View(await _context.Products.Include(prod=>prod.ProductType).ToListAsync()); // default
         }
+       
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -190,6 +193,14 @@ namespace CakeBakery.Controllers
         }
         public IActionResult ListProduct()
         {
+
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
+
             var productList = _context.Products.ToList();
             ViewBag.ProductList = productList;
             return View(productList);

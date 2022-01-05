@@ -22,6 +22,13 @@ namespace CakeBakery.Controllers
         // GET: Menus
         public async Task<IActionResult> Index()
         {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
             return View(await _context.Menus.ToListAsync());
         }
 
@@ -46,6 +53,12 @@ namespace CakeBakery.Controllers
         // GET: Menus/Create
         public IActionResult Create()
         {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
             return View();
         }
 
@@ -68,6 +81,13 @@ namespace CakeBakery.Controllers
         // GET: Menus/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -132,6 +152,18 @@ namespace CakeBakery.Controllers
             }
 
             return View(menu);
+        }
+
+        public IActionResult Show()
+        {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
+            return View();
         }
 
         // POST: Menus/Delete/5

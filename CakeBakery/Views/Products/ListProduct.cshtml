@@ -55,7 +55,7 @@
                         <div class="media-body">
                             <h4>@product.Name</h4>
                             <p>@product.Description</p>
-                            <a class="w_view_btn"asp-controller="Products" asp-action="ProductDetail">Xem chi tiết</a>
+                            <a class="w_view_btn"asp-controller="Products" asp-action="ProductDetail" asp-route-id="@product.Id">Xem chi tiết</a>
                         </div>
                     </div>
                 </div>
