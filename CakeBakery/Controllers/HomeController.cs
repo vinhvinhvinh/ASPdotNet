@@ -70,7 +70,7 @@ namespace CakeBakery.Controllers
                     Expires = DateTime.Now.AddDays(30)
                 };
                 
-                HttpContext.Response.Cookies.Append("AccountID",login.Id.ToString(),cookieDate);
+                HttpContext.Response.Cookies.Append("AccountId",login.Id.ToString(),cookieDate);
                 HttpContext.Response.Cookies.Append("AccountName", login.FullName.ToString(),cookieDate);
                 HttpContext.Response.Cookies.Append("AccountAvatar", login.Avatar.ToString(),cookieDate);
 

@@ -22,6 +22,13 @@ namespace CakeBakery.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
             var cakeBakeryContext = _context.Orders.Include(o => o.Account);
             return View(await cakeBakeryContext.ToListAsync());
         }
@@ -29,6 +36,13 @@ namespace CakeBakery.Controllers
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -48,6 +62,13 @@ namespace CakeBakery.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
             ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Address1");
             return View();
         }
@@ -72,6 +93,12 @@ namespace CakeBakery.Controllers
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
             if (id == null)
             {
                 return NotFound();
@@ -158,6 +185,12 @@ namespace CakeBakery.Controllers
         }
         public IActionResult Search(string userInput)
         {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
             if (userInput == null)
             {
                 userInput = "";

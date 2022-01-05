@@ -122,7 +122,7 @@
             <div class="container">
                 <div class="float-left">
                     <a href="tell:+18004567890"><i class="fa fa-phone" aria-hidden="true"></i> + (1800) 456 7890</a>
-                    <a href="mainto:info@cakebakery.com"><i class="fa fa-envelope-o" aria-hidden="true"></i> info@cakebakery.com</a>
+                    <a href="https://www.facebook.com/vinh.oi66/"><i class="fa fa-envelope-o" aria-hidden="true"></i> facebook.com/vinh.oi66</a>
                 </div>
                 <div class="float-right">
                     <ul class="h_social list_style">
@@ -132,7 +132,7 @@
                         <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                     <ul class="h_search list_style">
-                        <li class="shop_cart"><a href="#"><i class="lnr lnr-cart"></i></a></li>
+                        <li ><a asp-controller="Carts" asp-action="Show"><i class="lnr lnr-cart"></i></a></li>
                         <li><a class="popup-with-zoom-anim" href="#test-search"><i class="fa fa-search"></i></a></li>
                     </ul>
                     @* Avatar *@
@@ -188,18 +188,14 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav justify-content-end">
                             <li class="dropdown submenu active">
-                                <a class="dropdown-toggle" data-toggle="dropdown" asp-controller="Home" asp-action="Index" role="button" aria-haspopup="true" aria-expanded="false">Trang chủ</a>
+                                <a asp-controller="Home" asp-action="Index" role="button" aria-haspopup="true" >Trang chủ</a>
 
                             </li>
                             <li><a asp-controller="Products" asp-action="ListProduct">Sản phẩm</a></li>
                             <li><a asp-controller="Menus" asp-action="Show">Thực đơn</a></li>
                             <li class="dropdown submenu">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Thông tin</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="about-us.html">Cửa hàng</a></li>
-                                    <li><a href="our-team.html">Đầu bếp</a></li>
-                                    <li><a href="testimonials.html">Chứng nhận</a></li>
-                                </ul>
+                                <a asp-controller="Carts" asp-action="Show"  >Giỏ hàng</a>
+                                
                             </li>
                             <li>
                                 <a asp-controller="ProductTypes" asp-action="Show">Loại bánh</a>

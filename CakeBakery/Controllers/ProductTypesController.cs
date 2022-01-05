@@ -151,11 +151,24 @@ namespace CakeBakery.Controllers
         }
         public IActionResult Show()
         {
+            //Thông tin người dùng
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
             return View();
         }
         
         public IActionResult Search(string userInput = "")
         {
+            //Thông tin người dùng
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
             if (userInput == null)
             {
                 userInput = "";

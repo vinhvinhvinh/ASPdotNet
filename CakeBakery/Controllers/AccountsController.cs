@@ -22,6 +22,12 @@ namespace CakeBakery.Controllers
         // GET: Accounts
         public async Task<IActionResult> Index()
         {
+            //Thông tin người dùng
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
             //var res = _context.Accounts.Where(acc => acc.IsAdmin == true && acc.Address1.Contains("Thành phố Hồ Chí Minh"));
             //return View(await res.ToListAsync());
             return View(await _context.Accounts.ToListAsync());
@@ -154,6 +160,14 @@ namespace CakeBakery.Controllers
 
         public IActionResult Search(string userInput)
         {
+            //Thông tin người dùng
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
+
             if (userInput == null)
             {
                 userInput = "";

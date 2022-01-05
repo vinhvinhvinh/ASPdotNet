@@ -22,6 +22,13 @@ namespace CakeBakery.Controllers
         // GET: MenuDetails
         public async Task<IActionResult> Index()
         {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
             var cakeBakeryContext = _context.MenuDetails.Include(m => m.Menu).Include(m => m.Product);
             return View(await cakeBakeryContext.ToListAsync());
         }
@@ -29,6 +36,12 @@ namespace CakeBakery.Controllers
         // GET: MenuDetails/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
             if (id == null)
             {
                 return NotFound();
@@ -49,8 +62,15 @@ namespace CakeBakery.Controllers
         // GET: MenuDetails/Create
         public IActionResult Create()
         {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
             ViewData["MenuId"] = new SelectList(_context.Menus, "Id", "Id");
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Description");
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
             return View();
         }
 
