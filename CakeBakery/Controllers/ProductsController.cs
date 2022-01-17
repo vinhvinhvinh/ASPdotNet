@@ -69,6 +69,11 @@ namespace CakeBakery.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
             return View();
         }
 

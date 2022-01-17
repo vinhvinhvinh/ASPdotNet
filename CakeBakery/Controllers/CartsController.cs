@@ -188,6 +188,8 @@ namespace CakeBakery.Controllers
         {
             return View();
         }
+
+        // GIỎ HÀNG CỦA USER
         public IActionResult Show()
         {
             // Kiểm tra Cookie - lấy Username từ Cookie
@@ -206,18 +208,18 @@ namespace CakeBakery.Controllers
 
             //Lấy sản phẩm trong cart
             //----
-            var prodInCart = from prod in _context.Products
+            var prodInCart2 = from prod in _context.Products
                              join c in _context.Carts on prod.Id equals c.ProductId
                              join a in _context.Accounts on c.AccountId equals a.Id
                              where a.Id == recentUserId 
-                             //select new { name = prod.Name, price = prod.Price, image = prod.Image };
+                             //select new { name = prod.Name, price = prod.Price, image = prod.Image ,quantity=c.Quantity};
                              select prod;
 
+            var prodInCart = _context.Carts.Include(a => a.Account).Include(p => p.Product)
+                                            .Where(a => a.Account.Id == recentUserId);
+
            
-            //Lấy số lượng từng sp
-            var recentCart = _context.Carts.Include(c => c.Account).Where(c => c.Account.Id == recentUserId);
-            
-          
+           
 
                 //----
                 ViewBag.ProdInCart = prodInCart;
@@ -277,10 +279,19 @@ namespace CakeBakery.Controllers
             _context.Add(order);
             _context.SaveChanges();
 
+            //lấy MenuId của ngày hôm nay
+            int menuId = _context.Menus.Where(menu => menu.MenuDate == DateTime.Today).Select(menu => menu.Id).FirstOrDefault();
+
             //Them chi tiet hoa don
             List<Cart> carts = _context.Carts.Include(c => c.Product).Include(c => c.Account)
             .Where(c => c.Account.Id == recentUserId).ToList();
-            
+
+
+            List<Cart> carts2 =(from c in _context.Carts
+             join mndt in _context.MenuDetails on c.Product.Id equals mndt.ProductId
+             where mndt.MenuId == menuId
+             select c).ToList();
+
             foreach (Cart c in carts)
             {
                 OrderDetail oddtail = new OrderDetail();
@@ -294,11 +305,16 @@ namespace CakeBakery.Controllers
 
             //remove giỏ hàng 
             // chưa trừ số lượng
-            foreach(Cart c in carts)
+
+
+            foreach (Cart c in carts)
             {
-                _context.Carts.Remove(c);
+               _context.Carts.Remove(c);
             }
             _context.SaveChanges();
+
+            //Trừ số lượng trong menu detail
+
 
             return RedirectToAction("Index","Home");
         }

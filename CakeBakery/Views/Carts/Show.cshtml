@@ -2,18 +2,17 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    @model IEnumerable<CakeBakery.Models.Cart>
+
     ViewData["Title"] = "Giỏ hàng";
     var user = ViewBag.UserAccount;
     var productInCart = ViewBag.ProdInCart;
-    var recentCart = ViewBag.RecentCart;
-
-
     
 }
 <partial name="_NavBar" />
 <!--================Cart Table Area =================-->
 <section class="cart_table_area p_100">
-   
+
     <div class="container">
         <div class="table-responsive">
             <table class="table">
@@ -21,26 +20,32 @@
                     <tr>
                         <th scope="col">Sản phẩm</th>
                         <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Số lượng</th>
                         <th scope="col">Gía</th>
+                        <th scope="col"></th>
+
                         @*<th scope="col">Số lượng</th>
-                        <th scope="col">Tổng tiền</th>*@
+        <th scope="col">Tổng tiền</th>*@
 
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (Product p in productInCart)
+                    @foreach (Cart p in productInCart)
                     {
 
-                        <tr>
-                            <td>
-                                <img src="~/img/cake-feature/@p.Image" alt="">
-                            </td>
-                            <td>@p.Name</td>
-                            <td>@p.Price.ToString("0,00#") VND    </td>
-                            @*<td></td>
-                            <td>$25.00</td>*@
-                        </tr>
-                    }
+                    <tr>
+                        <td>
+                            <img src="~/img/cake-feature/@p.Product.Image" alt="">
+                        </td>
+                        <td>@p.Product.Name</td>
+                        <td>@p.Quantity</td>
+                        <td>@((p.Product.Price * p.Quantity).ToString("0,00#")) VND     </td>
+                        <td><button>X</button></td>
+
+                        @*<td></td>
+        <td>$25.00</td>*@
+                    </tr>
+                            }
 
                 </tbody>
             </table>
@@ -53,7 +58,7 @@
                         <div class="cart_head">
                             Tổng giỏ hàng
                         </div>
-                       
+
                         <div class="sub_total">
                             <h5>Phụ thu <span>0 VND</span></h5>
                         </div>
@@ -61,7 +66,7 @@
                             <h4>Tổng tiền <span>@ViewBag.TotalPriceInCart.ToString("0,00#") VND</span></h4>
                         </div>
                         <div class="cart_footer">
-                           <button class="pest_btn" type="submit">Đặt hàng</button> 
+                            <button class="pest_btn" type="submit">Đặt hàng</button>
                             <span>@ViewBag.ErrorMessages</span>
                         </div>
                     </div>
