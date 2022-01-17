@@ -31,12 +31,21 @@ namespace CakeBakery.Controllers
             }
 
 
-            var lstProducts = _context.Products.ToList();
-            ViewBag.ProductList = lstProducts;
+            //var lstProducts = _context.Products.ToList();
+            //ViewBag.ProductList = lstProducts;
+            
             //lấy MenuId của ngày hôm nay
             int menuId = _context.Menus.Where(menu => menu.MenuDate == DateTime.Today).Select(menu=>menu.Id).FirstOrDefault();
             //get List MenuDetail của MenuId trên
             var menu2day = _context.MenuDetails.Where(i => i.MenuId == menuId).ToList();
+
+             List<Product> lstProducts = (from prod in _context.Products
+                              join mndt in _context.MenuDetails on prod.Id equals mndt.ProductId
+                              where mndt.MenuId == menuId 
+                              select prod).ToList();
+
+            ViewBag.ProductList = lstProducts;
+
             //đóng gói
             ViewBag.MenuToday = menu2day;
             return View();
@@ -67,16 +76,28 @@ namespace CakeBakery.Controllers
             {
                 CookieOptions cookieDate = new CookieOptions()
                 {
-                    Expires = DateTime.Now.AddDays(30)
+                     Expires = DateTime.Now.AddDays(30)
+                    //Expires = DateTime.UtcNow.AddMilliseconds(1500)
                 };
-                
-                HttpContext.Response.Cookies.Append("AccountId",login.Id.ToString(),cookieDate);
-                HttpContext.Response.Cookies.Append("AccountName", login.FullName.ToString(),cookieDate);
-                HttpContext.Response.Cookies.Append("AccountAvatar", login.Avatar.ToString(),cookieDate);
+
+                HttpContext.Response.Cookies.Append("AccountId", login.Id.ToString(), cookieDate);
+                HttpContext.Response.Cookies.Append("AccountName", login.FullName.ToString(), cookieDate);
+                HttpContext.Response.Cookies.Append("AccountAvatar", login.Avatar.ToString(), cookieDate);
+
+                //HttpContext.Session.SetInt32("AccountId", login.Id);
 
                 if (!login.IsAdmin)
                 {
-                    return RedirectToAction("Index", "Home");
+                    if (login.Status != 2)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ViewBag.LoginFailMessage = "Tài khoản chưa được kích hoạt";
+                        return View();
+                    }
+                   
                 }
                 else
                 {
