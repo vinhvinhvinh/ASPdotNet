@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CakeBakery.Data;
 using CakeBakery.Models;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace CakeBakery.Controllers
 {
     public class AccountsController : Controller
     {
         private readonly CakeBakeryContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AccountsController(CakeBakeryContext context)
+        public AccountsController(CakeBakeryContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment= webHostEnvironment;
         }
 
         // GET: Accounts
@@ -62,12 +66,28 @@ namespace CakeBakery.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AccountId,Username,Password,Email,FullName,Address1,Address2,Phone,Avatar,IsAdmin,AccountStatus")] Account account)
+        public async Task<IActionResult> Create([Bind("AccountId,Username,Password,Email,FullName,Address1,Address2,Phone,ImageFile,Avatar,IsAdmin,AccountStatus")] Account account)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(account);
                 await _context.SaveChangesAsync();
+                if (account.ImageFile != null)
+                {
+                    var filename = account.Id.ToString() + Path.GetExtension(account.ImageFile.FileName);
+                    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "user");
+                    var filePath = Path.Combine(uploadPath, filename);
+
+                    using (FileStream fs = System.IO.File.Create(filePath))
+                    {
+                        account.ImageFile.CopyTo(fs);
+                        fs.Flush();
+                    }
+                    account.Avatar= filename;
+
+                    _context.Accounts.Update(account);
+                    await _context.SaveChangesAsync();
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(account);
@@ -105,6 +125,7 @@ namespace CakeBakery.Controllers
             {
                 try
                 {
+
                     _context.Update(account);
                     await _context.SaveChangesAsync();
                 }

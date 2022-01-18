@@ -30,7 +30,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (Cart p in productInCart)
+                   @foreach (Cart p in productInCart)
                     {
 
                     <tr>
@@ -38,12 +38,10 @@
                             <img src="~/img/cake-feature/@p.Product.Image" alt="">
                         </td>
                         <td>@p.Product.Name</td>
-                        <td>@p.Quantity</td>
+                        <td><input type="number" value="@p.Quantity" style="width:50px" min="1"></td>
                         <td>@((p.Product.Price * p.Quantity).ToString("0,00#")) VND     </td>
-                        <td><button>X</button></td>
+                        <td><a asp-action="RemoveCart" asp-route-id="@p.Id">X</a></td>
 
-                        @*<td></td>
-        <td>$25.00</td>*@
                     </tr>
                             }
 
