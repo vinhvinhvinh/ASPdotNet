@@ -252,7 +252,16 @@ namespace CakeBakery.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
-
+       
+        //[HttpPost]
+        public IActionResult RemoveCart(int id)
+        {
+            int recentUserId = Int32.Parse(HttpContext.Request.Cookies["AccountId"]);
+            Cart c = _context.Carts.FirstOrDefault(cartt => cartt.AccountId == recentUserId && cartt.Id == id);
+            _context.Carts.Remove(c);
+            _context.SaveChanges();
+            return RedirectToAction("Show","Carts");
+        }
        
         [HttpPost]
         public IActionResult Pay(Order order)
@@ -318,13 +327,16 @@ namespace CakeBakery.Controllers
 
             return RedirectToAction("Index","Home");
         }
+
+        //public bool CheckStockInThisDay(int recentUser)
+        //{
+        //    int recentUserId = Int32.Parse(HttpContext.Request.Cookies["AccountId"]);
+        //    List<Cart> carts = _context.Carts.Include(c => c.Product).Include(c => c.Account)
+        //    .Where(c => c.Account.Id == recentUser).ToList();
+
             
-            //public bool CheckStockInThisDay(int recentUser)
-            //{
-            //List<Cart> carts = _context.Carts.Include(c => c.Product).Include(c => c.Account)
-            //.Where(c => c.Account.Id == recentUser).ToList();
-            //}
-        
+        //}
+
 
     }
 }
