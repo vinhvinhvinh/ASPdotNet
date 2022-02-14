@@ -22,12 +22,22 @@ namespace CakeBakery.Controllers
         // GET: ProductTypes
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
             return View(await _context.ProductTypes.ToListAsync());
         }
 
         // GET: ProductTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
             if (id == null)
             {
                 return NotFound();
@@ -46,6 +56,11 @@ namespace CakeBakery.Controllers
         // GET: ProductTypes/Create
         public IActionResult Create()
         {
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
             return View();
         }
 
@@ -68,6 +83,11 @@ namespace CakeBakery.Controllers
         // GET: ProductTypes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
             if (id == null)
             {
                 return NotFound();
@@ -157,6 +177,9 @@ namespace CakeBakery.Controllers
                 ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
                 ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
             }
+
+            var pt = _context.ProductTypes.ToList();
+            ViewBag.productType = pt;
             return View();
         }
         
