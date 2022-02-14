@@ -198,6 +198,10 @@ namespace CakeBakery.Controllers
                 ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
                 ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
             }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
             //thông tin người dùng
             int recentUserId = Int32.Parse(HttpContext.Request.Cookies["AccountId"]);
             ViewBag.UserAccount = _context.Accounts.Where(acc => acc.Id == recentUserId).FirstOrDefault();
@@ -290,24 +294,28 @@ namespace CakeBakery.Controllers
 
             //lấy MenuId của ngày hôm nay
             int menuId = _context.Menus.Where(menu => menu.MenuDate == DateTime.Today).Select(menu => menu.Id).FirstOrDefault();
+            //danh sách thực đơn của ngày
+            List<MenuDetail> listmn2day = _context.MenuDetails.Include(m=>m.Product).Where(m => m.Id == menuId).ToList();
 
             //Them chi tiet hoa don
             List<Cart> carts = _context.Carts.Include(c => c.Product).Include(c => c.Account)
             .Where(c => c.Account.Id == recentUserId).ToList();
 
-
-            List<Cart> carts2 =(from c in _context.Carts
-             join mndt in _context.MenuDetails on c.Product.Id equals mndt.ProductId
-             where mndt.MenuId == menuId
-             select c).ToList();
+            // Một phạm trù khác
+            
 
             foreach (Cart c in carts)
             {
+                MenuDetail mndtByProd = _context.MenuDetails.Where(m => m.Product.Id == c.Product.Id).Where(m=>m.MenuId==menuId).FirstOrDefault();
+
                 OrderDetail oddtail = new OrderDetail();
                 oddtail.OrderId = order.Id;
                 oddtail.ProductId = c.ProductId;
                 oddtail.Quantity = c.Quantity;
                 oddtail.Price = c.Product.Price;
+                // sửa số lượng trong menu detail
+                mndtByProd.Stock -= c.Quantity;
+
                 _context.Add(oddtail);
             }
             _context.SaveChanges();

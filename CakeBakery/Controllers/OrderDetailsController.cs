@@ -22,6 +22,12 @@ namespace CakeBakery.Controllers
         // GET: OrderDetails
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
             var cakeBakeryContext = _context.OrdersDetails.Include(o => o.Order).Include(o => o.Product);
             return View(await cakeBakeryContext.ToListAsync());
         }
