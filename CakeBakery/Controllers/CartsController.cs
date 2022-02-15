@@ -286,7 +286,8 @@ namespace CakeBakery.Controllers
             order.Total= _context.Carts.Include(c => c.Account).Include(c => c.Product)
                                                         .Where(c => c.Account.Id == recentUserId)
                                                         .Sum(c => c.Quantity * c.Product.Price);
-
+            // hóa đơn chưa duyệt
+            order.Status = 0;
 
             
             _context.Add(order);

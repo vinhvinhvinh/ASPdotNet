@@ -29,7 +29,7 @@ namespace CakeBakery.Controllers
                 ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
             }
 
-            var cakeBakeryContext = _context.Orders.Include(o => o.Account);
+            var cakeBakeryContext = _context.Orders.Include(o => o.Account).OrderByDescending(o => o.IssueDate); 
             return View(await cakeBakeryContext.ToListAsync());
         }
 

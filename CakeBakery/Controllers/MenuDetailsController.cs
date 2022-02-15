@@ -20,7 +20,7 @@ namespace CakeBakery.Controllers
         }
 
         // GET: MenuDetails
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
             // Kiểm tra Cookie - lấy Username từ Cookie
             if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
@@ -29,7 +29,7 @@ namespace CakeBakery.Controllers
                 ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
             }
 
-            var cakeBakeryContext = _context.MenuDetails.Include(m => m.Menu).Include(m => m.Product);
+            var cakeBakeryContext = _context.MenuDetails.Include(m => m.Menu).Include(m => m.Product).Where(m=>m.MenuId==id);
             return View(await cakeBakeryContext.ToListAsync());
         }
 
