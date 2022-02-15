@@ -1,0 +1,76 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model IEnumerable<CakeBakery.Models.Cart>
+
+    ViewData["Title"] = "Giỏ hàng";
+    var user = ViewBag.UserAccount;
+    var productInCart = ViewBag.ProdInCart;
+    
+}
+<partial name="_NavBar" />
+<!--================Cart Table Area =================-->
+<section class="cart_table_area p_100">
+
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Sản phẩm</th>
+                        <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Gía</th>
+                        <th scope="col"></th>
+
+                        @*<th scope="col">Số lượng</th>
+        <th scope="col">Tổng tiền</th>*@
+
+                    </tr>
+                </thead>
+                <tbody>
+                   @foreach (Cart p in productInCart)
+                    {
+
+                    <tr>
+                        <td>
+                            <img src="~/img/cake-feature/@p.Product.Image" alt="">
+                        </td>
+                        <td>@p.Product.Name</td>
+                        <td><input type="number" value="@p.Quantity" style="width:50px" min="1"></td>
+                        <td>@((p.Product.Price * p.Quantity).ToString("0,00#")) VND     </td>
+                        <td><a asp-ac   tion="RemoveCart" asp-route-id="@p.Id">X</a></td>
+
+                    </tr>
+                            }
+
+                </tbody>
+            </table>
+        </div>
+        <div class="row cart_total_inner">
+            <div class="col-lg-7"></div>
+            <div class="col-lg-5">
+                <form asp-action="Pay">
+                    <div class="cart_total_text">
+                        <div class="cart_head">
+                            Tổng giỏ hàng
+                        </div>
+
+                        <div class="sub_total">
+                            <h5>Phụ thu <span>0 VND</span></h5>
+                        </div>
+                        <div class="total">
+                            <h4>Tổng tiền <span>@ViewBag.TotalPriceInCart.ToString("0,00#") VND</span></h4>
+                        </div>
+                        <div class="cart_footer">
+                            <button class="pest_btn" type="submit">Đặt hàng</button>
+                            <span>@ViewBag.ErrorMessages</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================End Cart Table Area =================-->

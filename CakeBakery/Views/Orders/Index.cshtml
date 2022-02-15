@@ -1,0 +1,95 @@
+﻿@model IEnumerable<CakeBakery.Models.Order>
+
+@{
+    //unit of currency
+    var UOC_Format = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Hóa đơn";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Hóa đơn mới</a>
+</p>
+<form asp-controller="Orders" asp-action="Search" method="get">
+    <div style="margin-top:20px" class="input-group">
+        <input type="text" name="userInput" class="form-control" placeholder="Nhập từ khóa cần tìm...">
+
+        <span class="input-group-btn">
+            <button style="width:50px" ;class="btn btn-default" type="submit"><i style="color:black;font-size:25px;" class="zmdi zmdi-search"></i></button>
+        </span>
+    </div>
+</form>
+<form asp-controller="Orders" asp-action="ByIssueDate" method="get">
+    <div style="margin-top:20px" class="input-group">
+        <input type="date" name="userInput" class="form-control" placeholder="Chọn ngày">
+        <span class="input-group-btn">
+            <button style="width:50px" ;class="btn btn-default" type="submit"><i style="color:black;font-size:25px;" class="zmdi zmdi-search"></i></button>
+        </span>
+    </div>
+</form>
+<div style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;margin-top:20px;">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Account.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IssueDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Total)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Account.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IssueDate)
+                </td>
+                <td>
+                    @String.Format(UOC_Format, "{0:c0}",  item.Total)
+                    
+                </td>
+                @if (item.Status == 0)
+                {
+                    <td>Chưa duyệt</td>
+                }
+                else
+                {
+                    <td>Đã duyệt</td>
+                }
+
+
+                @if (item.Status == 0)
+                {
+                    <td>
+                        <a asp-action="DuyetHoaDon" asp-route-id="@item.Id">Duyệt</a> |
+                        <a asp-controller="OrderDetails" asp-action="Index" asp-route-id="@item.Id">Details</a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a asp-controller="OrderDetails" asp-action="Index" asp-route-id="@item.Id">Details</a>
+                        
+                    </td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

@@ -1,0 +1,66 @@
+﻿@model IEnumerable<CakeBakery.Models.Product>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    //unit of currency
+    var UOC_Format = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    ViewData["Title"] = "Danh sách bánh";
+    List<Product> lstProducts = ViewBag.ProductList;
+}
+}
+<partial name="_NavBar" />
+<!--================Blog Main Area =================-->
+<section class="our_cakes_area p_100">
+    <div class="container">
+        <div class="main_title">
+            <h2>Danh sách bánh</h2>
+            <h5>Giá trị của món ăn ngon, được quyết định bởi lương tâm của người đầu bếp</h5>
+        </div>
+        <div class="cake_feature_row row">
+            @foreach (var prod in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="cake_feature_item">
+                        <div class="cake_img">
+                            <img src="~/img/cake-feature/@prod.Image" alt="@prod.Id">
+                        </div>
+                        <div class="cake_text">
+                            <h4>@String.Format(UOC_Format, "{0:c0}", @prod.Price)</h4>
+                            <a asp-action="ProductDetail" asp-route-id="@prod.Id">
+                                <h3>@prod.Name</h3>
+                            </a> 
+                            
+                            <a class="pest_btn" href="#">Thêm vào giỏ hàng</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+        </div>
+    </div>
+</section>
+<!--================End Blog Main Area =================-->
+<!--================Special Recipe Area =================-->
+<section class="special_recipe_area">
+    <div class="container">
+        <div class="special_recipe_slider owl-carousel">
+            @foreach (Product product in lstProducts)
+            {
+                <div class="item">
+                    <div class="media">
+                        <div class="d-flex">
+                            <img src="~/img/recipe/@product.Image" alt="1">
+                        </div>
+                        <div class="media-body">
+                            <h4>@product.Name</h4>
+                            <p>@product.Description</p>
+                            <a class="w_view_btn"asp-controller="Products" asp-action="ProductDetail" asp-route-id="@product.Id">Xem chi tiết</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!--================End Special Recipe Area =================-->

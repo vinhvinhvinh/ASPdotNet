@@ -6,20 +6,48 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CakeBakery.Models;
+using CakeBakery.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace CakeBakery.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly CakeBakeryContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(CakeBakeryContext context)
         {
-            _logger = logger;
+            _context = context;
         }
-
+        
         public IActionResult Index()
         {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if(HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
+
+            //var lstProducts = _context.Products.ToList();
+            //ViewBag.ProductList = lstProducts;
+            
+            //lấy MenuId của ngày hôm nay
+            int menuId = _context.Menus.Where(menu => menu.MenuDate == DateTime.Today).Select(menu=>menu.Id).FirstOrDefault();
+            //get List MenuDetail của MenuId trên
+            var menu2day = _context.MenuDetails.Where(i => i.MenuId == menuId).ToList();
+
+             List<Product> lstProducts = (from prod in _context.Products
+                              join mndt in _context.MenuDetails on prod.Id equals mndt.ProductId
+                              where mndt.MenuId == menuId 
+                              select prod).ToList();
+
+            ViewBag.ProductList = lstProducts;
+
+            //đóng gói
+            ViewBag.MenuToday = menu2day;
             return View();
         }
 
@@ -32,6 +60,65 @@ namespace CakeBakery.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Login(string Username,string Password)
+        {
+
+            //----------Login with Cookie
+
+            Account login = _context.Accounts.Where(a => a.Username == Username && a.Password == Password).FirstOrDefault();
+            if (login!=null)
+            {
+                CookieOptions cookieDate = new CookieOptions()
+                {
+                     Expires = DateTime.Now.AddDays(30)
+                    //Expires = DateTime.UtcNow.AddMilliseconds(1500)
+                };
+
+                HttpContext.Response.Cookies.Append("AccountId", login.Id.ToString(), cookieDate);
+                HttpContext.Response.Cookies.Append("AccountName", login.FullName.ToString(), cookieDate);
+                HttpContext.Response.Cookies.Append("AccountAvatar", login.Avatar.ToString(), cookieDate);
+
+                //HttpContext.Session.SetInt32("AccountId", login.Id);
+
+                if (!login.IsAdmin)
+                {
+                    if (login.Status != 2)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ViewBag.LoginFailMessage = "Tài khoản chưa được kích hoạt";
+                        return View();
+                    }
+                   
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Products");
+                }
+                
+            }
+            else
+            {
+                ViewBag.LoginFailMessage = "Login Fail. Incorrect Username or Password";
+                return View();
+            }
+
+        }
+        public IActionResult Logout()
+        {
+            HttpContext.Response.Cookies.Append("AccountID", "", new CookieOptions { Expires=DateTime.Now.AddDays(-1)}) ;
+            HttpContext.Response.Cookies.Append("AccountName", "", new CookieOptions { Expires = DateTime.Now.AddDays(-1)});
+            HttpContext.Response.Cookies.Append("AccountAvatar", "", new CookieOptions { Expires = DateTime.Now.AddDays(-1)});
+            return RedirectToAction("Index", "Home");
+
         }
     }
 }

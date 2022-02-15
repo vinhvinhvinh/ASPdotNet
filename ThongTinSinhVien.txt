@@ -1,0 +1,13 @@
+Đồ án ASP.NET lần 1
+
+Thông tin sinh viên:
+
+- 0306191487 Nguyễn Thế Vinh
+- 0306191482 Hà Thị Bích Tuyền
+
+Đề tài website : Website bánh bánh CakeBakery
+
+Do bắt đầu làm đồ án với tên project là CakeBakery 
+nên xin thầy cho project tụi em được để tên CakeBakery
+Vì sợ sửa tên project sẽ làm ảnh hưởng đến source code.
+

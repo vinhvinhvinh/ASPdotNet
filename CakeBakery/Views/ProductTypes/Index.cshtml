@@ -1,0 +1,68 @@
+﻿@model IEnumerable<CakeBakery.Models.ProductType>
+
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Loại bánh";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">
+        <button class="au-btn au-btn-icon au-btn--green">
+            <i class="zmdi zmdi-plus"></i>Loại bánh mới
+        </button>
+    </a>
+</p>
+<form asp-controller="ProductTypes" asp-action="Search" method="get">
+    <div style="margin-top:20px" class="input-group">
+        <input type="text" name="userInput" class="form-control" placeholder="Nhập từ khóa cần tìm...">
+        <span class="input-group-btn">
+            <button style="width:50px" ;class="btn btn-default" type="submit"><i style="color:black;font-size:25px;" class="zmdi zmdi-search"></i></button>
+        </span>
+    </div>
+</form>
+<div style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;margin-top:20px;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TypeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeName)
+                </td>
+                @if (item.Status == 1)
+                {
+                    <td>
+                        Hoạt động
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Vô hiệu hóa
+                    </td>
+                }
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+    
