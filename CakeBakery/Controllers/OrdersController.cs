@@ -209,5 +209,14 @@ namespace CakeBakery.Controllers
             ViewBag.ggg = lstOrders;
             return View(lstOrders);
         }
+        
+        public async Task<IActionResult> DuyetHoaDon(int id)
+        {
+            Order order = _context.Orders.First(o=>o.Id==id);
+            order.Status = 1;
+            _context.Update(order);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

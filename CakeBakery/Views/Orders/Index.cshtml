@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<CakeBakery.Models.Order>
 
 @{
+    //unit of currency
+    var UOC_Format = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
     Layout = "_LayoutAdmin";
     ViewData["Title"] = "Hóa đơn";
 }
@@ -50,25 +52,42 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Account.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IssueDate)
+                </td>
+                <td>
+                    @String.Format(UOC_Format, "{0:c0}",  item.Total)
+                    
+                </td>
+                @if (item.Status == 0)
+                {
+                    <td>Chưa duyệt</td>
+                }
+                else
+                {
+                    <td>Đã duyệt</td>
+                }
+
+
+                @if (item.Status == 0)
+                {
                     <td>
-                        @Html.DisplayFor(modelItem => item.Account.FullName)
+                        <a asp-action="DuyetHoaDon" asp-route-id="@item.Id">Duyệt</a> |
+                        <a asp-controller="OrderDetails" asp-action="Index" asp-route-id="@item.Id">Details</a>
                     </td>
+                }
+                else
+                {
                     <td>
-                        @Html.DisplayFor(modelItem => item.IssueDate)
+                        <a asp-controller="OrderDetails" asp-action="Index" asp-route-id="@item.Id">Details</a>
+                        
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Total)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
+                }
+            </tr>
             }
         </tbody>
     </table>
