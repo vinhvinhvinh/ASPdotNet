@@ -116,7 +116,7 @@ namespace CakeBakery.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AccountId,Username,Password,Email,FullName,Address1,Address2,Phone,Avatar,IsAdmin,AccountStatus")] Account account)
         {
-            if (id != account.Id)
+            if (id == account.Id)
             {
                 return NotFound();
             }
@@ -128,6 +128,7 @@ namespace CakeBakery.Controllers
 
                     _context.Update(account);
                     await _context.SaveChangesAsync();
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -142,7 +143,7 @@ namespace CakeBakery.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(account);
+            return View();
         }
 
         // GET: Accounts/Delete/5
@@ -195,6 +196,64 @@ namespace CakeBakery.Controllers
             }
             var accounttList = _context.Accounts.Where(acc => acc.Username.Contains(userInput) || acc.Email.Contains(userInput) || acc.FullName.Contains(userInput) || acc.Phone.Contains(userInput) || acc.Address1.Contains(userInput) || acc.Address2.Contains(userInput)).ToList();
             return View(accounttList);
+        }
+
+        public IActionResult Profile()
+        {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
+            var idUser = Int32.Parse(HttpContext.Request.Cookies["AccountId"]);
+            var acc = _context.Accounts.Find(idUser);
+            var invs = _context.Orders.Where(inv => inv.AccountId == idUser).ToList();
+            ViewBag.ListInvoices = invs;
+            return View(acc);
+        }
+
+        public IActionResult InvoiceDetail(int id)
+        {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
+            var idUser = Int32.Parse(HttpContext.Request.Cookies["AccountId"]);
+            var acc = _context.Accounts.Find(idUser);
+            var inv = _context.Orders.Where(i => i.Id == id).First();
+            var detail = _context.OrdersDetails.Include(de=>de.Product).Where(de => de.OrderId == id).ToList();
+            ViewData["acc"] = acc;
+            ViewData["inv"] = inv;
+            return View(detail);
+        }
+
+
+
+        public async Task<IActionResult> Update(  string email, string fullname, string address1, string number )
+        {
+            // Kiểm tra Cookie - lấy Username từ Cookie
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
+            var idUser = Int32.Parse(HttpContext.Request.Cookies["AccountId"]);
+            var acc = _context.Accounts.Find(idUser);
+            acc.Email = email;
+            acc.FullName = fullname;
+            acc.Address1 = address1;
+            
+            acc.Phone = number;
+            _context.Accounts.Update(acc);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Profile", "Accounts");
+           
         }
     }
 }

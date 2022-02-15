@@ -20,9 +20,9 @@ namespace CakeBakery.Controllers
         }
 
         // GET: OrderDetails
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
-            var cakeBakeryContext = _context.OrdersDetails.Include(o => o.Order).Include(o => o.Product);
+            var cakeBakeryContext = _context.OrdersDetails.Include(o => o.Order).Include(o => o.Product).Where(o=>o.OrderId==id);
             return View(await cakeBakeryContext.ToListAsync());
         }
 
