@@ -30,6 +30,12 @@ namespace CakeBakery.Controllers
                 ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
                 ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
             }
+<<<<<<< HEAD
+=======
+
+            
+
+>>>>>>> 7783afb7a5585a6d19ef4be777a72202eb6e0920
             return View(await cakeBakeryContext.ToListAsync());
         }
 

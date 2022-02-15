@@ -477,3 +477,5 @@ D:\CDTH19E_0306191487\HocKy5\ASPDotNet\DoAn\CakeBakery\CakeBakery\obj\Debug\netc
 D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\Accounts\Profile.cshtml.g.cs
 D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\Accounts\InvoiceDetail.cshtml.g.cs
 D:\HK5\ASP\ASPdotNet\CakeBakery\obj\Debug\netcoreapp3.1\CakeBakery.csproj.AssemblyReference.cache
+D:\CDTH19E_0306191487\HocKy5\ASPDotNet\DoAn\CakeBakery\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\Accounts\InvoiceDetail.cshtml.g.cs
+D:\CDTH19E_0306191487\HocKy5\ASPDotNet\DoAn\CakeBakery\CakeBakery\obj\Debug\netcoreapp3.1\Razor\Views\Accounts\Profile.cshtml.g.cs
