@@ -27,8 +27,6 @@ namespace CakeBakery.Models
         [DisplayName("Mật khẩu")]
         public string Password { get; set; }
 
-
-
         
         [RegularExpression(@"(\W|^)[\w.+\-]*@gmail\.com(\W|$)", ErrorMessage = "{0} phải có gmail")]
         [Required(ErrorMessage = "{0} không được bỏ trống!")]

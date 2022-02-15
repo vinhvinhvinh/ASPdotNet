@@ -40,7 +40,7 @@
                         <td>@p.Product.Name</td>
                         <td><input type="number" value="@p.Quantity" style="width:50px" min="1"></td>
                         <td>@((p.Product.Price * p.Quantity).ToString("0,00#")) VND     </td>
-                        <td><a asp-action="RemoveCart" asp-route-id="@p.Id">X</a></td>
+                        <td><a asp-ac   tion="RemoveCart" asp-route-id="@p.Id">X</a></td>
 
                     </tr>
                             }

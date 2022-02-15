@@ -3,6 +3,7 @@
 *@
 @{
     ViewData["Title"] = "Loại sản phẩm";
+    var PTpackage = ViewBag.productType;
 }
 <partial name="_NavBar" />
 <!--================Portfolio Area Area =================-->
@@ -20,114 +21,23 @@
             </ul>
         </div>
         <div class="row grid_portfolio_area imageGallery1">
-            <div class="col-md-4 col-6 cake bakery bread">
-                <div class="portfolio_item">
-                    <div class="portfolio_img">
-                        <a class="light" href="~/img/portfolio/portfolio-1.jpg">
-                            <img class="img-fluid" src="~/img/portfolio/portfolio-1.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="portfolio_text">
-                        <a href="#"><h4>Chocolate Pastry</h4></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-6 bakery choco">
-                <div class="portfolio_item">
-                    <div class="portfolio_img">
-                        <a class="light" href="~/img/portfolio/portfolio-2.jpg">
-                            <img class="img-fluid" src="~/img/portfolio/portfolio-2.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="portfolio_text">
-                        <a href="#"><h4>Chocolate Pastry</h4></a>
+            @foreach (ProductType item in PTpackage)
+            {
+                <div class="col-md-4 col-6 cake bakery bread">
+                    <div class="portfolio_item">
+                        <div class="portfolio_img">
+                            <a class="light" href="~/img/portfolio/portfolio-@(item.Id).jpg">
+                                <img class="img-fluid" src="~/img/portfolio/portfolio-@(item.Id).jpg" alt="">
+                            </a>
+                        </div>
+                        <div class="portfolio_text">
+                            <a href="#"><h4>@item.TypeName</h4></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 col-6 cake choco">
-                <div class="portfolio_item">
-                    <div class="portfolio_img">
-                        <a class="light" href="~/img/portfolio/portfolio-3.jpg">
-                            <img class="img-fluid" src="~/img/portfolio/portfolio-3.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="portfolio_text">
-                        <a href="#"><h4>Chocolate Pastry</h4></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-6 cake choco">
-                <div class="portfolio_item">
-                    <div class="portfolio_img">
-                        <a class="light" href="~/img/portfolio/portfolio-4.jpg">
-                            <img class="img-fluid" src="~/img/portfolio/portfolio-4.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="portfolio_text">
-                        <a href="#"><h4>Chocolate Pastry</h4></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-6 bakery past bread">
-                <div class="portfolio_item">
-                    <div class="portfolio_img">
-                        <a class="light" href="~/img/portfolio/portfolio-5.jpg">
-                            <img class="img-fluid" src="~/img/portfolio/portfolio-5.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="portfolio_text">
-                        <a href="#"><h4>Chocolate Pastry</h4></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-6 past choco">
-                <div class="portfolio_item">
-                    <div class="portfolio_img">
-                        <a class="light" href="~/img/portfolio/portfolio-6.jpg">
-                            <img class="img-fluid" src="~/img/portfolio/portfolio-6.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="portfolio_text">
-                        <a href="#"><h4>Chocolate Pastry</h4></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-6 bakery bread">
-                <div class="portfolio_item">
-                    <div class="portfolio_img">
-                        <a class="light" href="~/img/portfolio/portfolio-7.jpg">
-                            <img class="img-fluid" src="~/img/portfolio/portfolio-7.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="portfolio_text">
-                        <a href="#"><h4>Chocolate Pastry</h4></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-6 past bread">
-                <div class="portfolio_item">
-                    <div class="portfolio_img">
-                        <a class="light" href="~/img/portfolio/portfolio-8.jpg">
-                            <img class="img-fluid" src="~/img/portfolio/portfolio-8.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="portfolio_text">
-                        <a href="#"><h4>Chocolate Pastry</h4></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-6 bakery past bread">
-                <div class="portfolio_item">
-                    <div class="portfolio_img">
-                        <a class="light" href="~/img/portfolio/portfolio-9.jpg">
-                            <img class="img-fluid" src="~/img/portfolio/portfolio-9.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="portfolio_text">
-                        <a href="#"><h4>Chocolate Pastry</h4></a>
-                    </div>
-                </div>
-            </div>
+            }
+
+            
         </div>
     </div>
 </section>
