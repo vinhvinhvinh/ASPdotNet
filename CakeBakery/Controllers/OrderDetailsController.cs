@@ -22,17 +22,14 @@ namespace CakeBakery.Controllers
         // GET: OrderDetails
         public async Task<IActionResult> Index(int id)
         {
-<<<<<<< HEAD
+
             var cakeBakeryContext = _context.OrdersDetails.Include(o => o.Order).Include(o => o.Product).Where(o=>o.OrderId==id);
-=======
+
             if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
             {
                 ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
                 ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
             }
-
-            var cakeBakeryContext = _context.OrdersDetails.Include(o => o.Order).Include(o => o.Product);
->>>>>>> f68e8ce11dc725783aab70d007375bfa84c3caad
             return View(await cakeBakeryContext.ToListAsync());
         }
 

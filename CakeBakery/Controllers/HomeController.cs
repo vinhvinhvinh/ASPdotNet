@@ -88,19 +88,20 @@ namespace CakeBakery.Controllers
 
                 if (!login.IsAdmin)
                 {
-                    if (login.Status != 2)
+                    if (login.Status != 0)
                     {
                         return RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        ViewBag.LoginFailMessage = "Tài khoản chưa được kích hoạt";
+                        ViewBag.LoginFailMessage = "Tài khoản đang bị khóa";
                         return View();
                     }
                    
                 }
                 else
                 {
+
                     return RedirectToAction("Index", "Products");
                 }
                 

@@ -12,6 +12,7 @@ using System.IO;
 
 namespace CakeBakery.Controllers
 {
+    
     public class AccountsController : Controller
     {
         private readonly CakeBakeryContext _context;
@@ -19,6 +20,7 @@ namespace CakeBakery.Controllers
 
         public AccountsController(CakeBakeryContext context, IWebHostEnvironment webHostEnvironment)
         {
+            
             _context = context;
             _webHostEnvironment= webHostEnvironment;
         }
@@ -106,6 +108,7 @@ namespace CakeBakery.Controllers
             {
                 return NotFound();
             }
+            
             return View(account);
         }
 
@@ -114,9 +117,10 @@ namespace CakeBakery.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AccountId,Username,Password,Email,FullName,Address1,Address2,Phone,Avatar,IsAdmin,AccountStatus")] Account account)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Username,Password,Email,FullName,Address1,Address2,Phone,Avatar,IsAdmin,Status")] Account account)
         {
-            if (id == account.Id)
+            
+            if (id != account.Id)
             {
                 return NotFound();
             }
@@ -233,7 +237,6 @@ namespace CakeBakery.Controllers
         }
 
 
-
         public async Task<IActionResult> Update(  string email, string fullname, string address1, string number )
         {
             // Kiểm tra Cookie - lấy Username từ Cookie
@@ -254,6 +257,29 @@ namespace CakeBakery.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Profile", "Accounts");
            
+        }
+
+        public async Task<IActionResult> VoHieuHoa(int id)
+        {
+            //Thông tin người dùng
+            if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
+            {
+                ViewBag.Fullname = HttpContext.Request.Cookies["AccountName"].ToString();
+                ViewBag.Avatar = HttpContext.Request.Cookies["AccountAvatar"].ToString();
+            }
+
+            Account acc = _context.Accounts.First(o => o.Id == id);
+            if (acc.Status == 0)
+            {
+                acc.Status = 1;
+            }
+            else
+            {
+                acc.Status = 0;
+            }
+            _context.Update(acc);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
