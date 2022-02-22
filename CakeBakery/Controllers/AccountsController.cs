@@ -9,6 +9,7 @@ using CakeBakery.Data;
 using CakeBakery.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace CakeBakery.Controllers
 {
@@ -237,7 +238,7 @@ namespace CakeBakery.Controllers
         }
 
 
-        public async Task<IActionResult> Update(  string email, string fullname, string address1, string number )
+        public async Task<IActionResult> Update(  string email, string fullname, string address1, string phone)
         {
             // Kiểm tra Cookie - lấy Username từ Cookie
             if (HttpContext.Request.Cookies.ContainsKey("AccountName"))
@@ -248,11 +249,12 @@ namespace CakeBakery.Controllers
 
             var idUser = Int32.Parse(HttpContext.Request.Cookies["AccountId"]);
             var acc = _context.Accounts.Find(idUser);
-            acc.Email = email;
+            
+                acc.Email = email;
             acc.FullName = fullname;
             acc.Address1 = address1;
             
-            acc.Phone = number;
+            acc.Phone = phone;
             _context.Accounts.Update(acc);
             await _context.SaveChangesAsync();
             return RedirectToAction("Profile", "Accounts");
